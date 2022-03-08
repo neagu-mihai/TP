@@ -1,0 +1,5 @@
+Memory: 104964 
+OS Type: Darwin 
+Kernel version: Darwin Kernel Version 20.4.0: Thu Apr 22 21:46:41 PDT 2021; root:xnu-7195.101.2~1/RELEASE_ARM64_T8101 
+CPUs: 
+[{"model":"Apple M1","speed":24,"times":{"user":41458110,"nice":0,"sys":27190780,"idle":399115230,"irq":0}},{"model":"Apple M1","speed":24,"times":{"user":37532800,"nice":0,"sys":24023110,"idle":406173560,"irq":0}},{"model":"Apple M1","speed":24,"times":{"user":28036580,"nice":0,"sys":19004580,"idle":420687700,"irq":0}},{"model":"Apple M1","speed":24,"times":{"user":22832160,"nice":0,"sys":15535670,"idle":429361230,"irq":0}},{"model":"Apple M1","speed":24,"times":{"user":26265410,"nice":0,"sys":7698810,"idle":433764340,"irq":0}},{"model":"Apple M1","speed":24,"times":{"user":15983700,"nice":0,"sys":4720990,"idle":447024470,"irq":0}},{"model":"Apple M1","speed":24,"times":{"user":8010720,"nice":0,"sys":2364450,"idle":457353070,"irq":0}},{"model":"Apple M1","speed":24,"times":{"user":4416440,"nice":0,"sys":1178350,"idle":462133590,"irq":0}}]

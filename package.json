@@ -1,0 +1,27 @@
+{
+  "name": "tp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UPB-FILS-ALF/TP.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UPB-FILS-ALF/TP/issues"
+  },
+  "homepage": "https://github.com/UPB-FILS-ALF/TP#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "http": "0.0.1-security",
+    "moment-timezone": "^0.5.34"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.19"
+  }
+}

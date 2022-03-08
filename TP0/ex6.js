@@ -1,0 +1,12 @@
+"use strict";
+exports.__esModule = true;
+var os = require("os");
+var chalk = require("chalk");
+var mem = os.freemem() / 1024;
+var osType = os.type();
+var kernel = os.version();
+var cpus = JSON.stringify(os.cpus());
+console.log(chalk.redBright(mem));
+console.log(chalk.green(osType));
+console.log(chalk.blueBright(kernel));
+console.log(chalk.yellow(cpus));
