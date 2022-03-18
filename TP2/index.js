@@ -22,7 +22,6 @@ try {
 catch (error) {
     console.log(error);
 }
-//ex2
 var file_content2;
 try {
     file_content2 = fs.readFileSync('BusinessFinancialData.csv', 'ascii');
@@ -34,6 +33,19 @@ try {
         var lnp = ln[i].split(',');
         console.log(lnp[0].concat(" ", lnp[2], " ", lnp[4]));
     }
+    //ex3
+    var enumenp = [];
+    for (var i in ln) {
+        var lnp = ln[i].split(',');
+        var enp = { code: lnp[0],
+            periode: lnp[1],
+            valeur_totale: lnp[2],
+            sujet: lnp[3],
+            categorie: lnp[4],
+            domaine: lnp[5] };
+        enumenp.push(enp);
+    }
+    console.log(enumenp);
 }
 catch (error) {
     console.log(error);

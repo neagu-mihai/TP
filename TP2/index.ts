@@ -20,6 +20,14 @@ try {
     console.log(error);
 }
 //ex2
+type Entreprise={
+    code:String,
+        periode:String,
+        valeur_totale:String,
+        sujet:String,
+        categorie:String,
+        domaine:String,
+}
 let file_content2:string;
 try {
     file_content2 = fs.readFileSync('BusinessFinancialData.csv', 'ascii');
@@ -32,6 +40,22 @@ try {
         let lnp=ln[i].split(',');
         console.log(lnp[0].concat(" ",lnp[2]," ",lnp[4]));
     }
+    //ex3
+    let enumenp:Array<Entreprise>=[];
+    for( let i in ln)
+    {
+        let lnp=ln[i].split(',');
+        let enp: Entreprise= {code:lnp[0],
+        periode:lnp[1],
+        valeur_totale:lnp[2],
+        sujet:lnp[3],
+        categorie:lnp[4],
+        domaine:lnp[5]};
+        enumenp.push(enp);
+    }
+    console.log(enumenp);
+
+
 } catch(error) {
     console.log(error);
 }
