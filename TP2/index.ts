@@ -54,8 +54,26 @@ try {
         enumenp.push(enp);
     }
     console.log(enumenp);
+} catch(error) {
+    console.log(error);
+}
+//ex4
+let file_content3: string;
+type File_loc={
+    directory:String,
+}
 
+try {
+    file_content3 = fs.readFileSync('passwd', 'ascii');
+    let ln=file_content3.split('\n');
+    let enumloc:Array<File_loc>=[];
+    for( let i in ln)
+    {
+        let loc:File_loc={directory:ln[i]};
+        enumloc.push(loc);
 
+    }
+    console.log(file_content3);
 } catch(error) {
     console.log(error);
 }

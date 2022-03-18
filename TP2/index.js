@@ -50,3 +50,18 @@ try {
 catch (error) {
     console.log(error);
 }
+//ex4
+var file_content3;
+try {
+    file_content3 = fs.readFileSync('passwd', 'ascii');
+    var ln = file_content3.split('\n');
+    var enumloc = [];
+    for (var i in ln) {
+        var loc = { directory: ln[i] };
+        enumloc.push(loc);
+    }
+    console.log(file_content3);
+}
+catch (error) {
+    console.log(error);
+}
