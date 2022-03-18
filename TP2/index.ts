@@ -16,11 +16,25 @@ try {
     delete n3p[3];
     delete n3p[1];
     console.log(n3p);
-
 } catch(error) {
     console.log(error);
 }
 //ex2
+let file_content2:string;
+try {
+    file_content2 = fs.readFileSync('BusinessFinancialData.csv', 'ascii');
+    //a)
+    let ln=file_content2.split('\n');
+    console.log(ln);
+    //b)
+    for( let i in ln)
+    {
+        let lnp=ln[i].split(',');
+        console.log(lnp[0].concat(" ",lnp[2]," ",lnp[4]));
+    }
+} catch(error) {
+    console.log(error);
+}
 
 
 

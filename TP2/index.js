@@ -22,3 +22,19 @@ try {
 catch (error) {
     console.log(error);
 }
+//ex2
+var file_content2;
+try {
+    file_content2 = fs.readFileSync('BusinessFinancialData.csv', 'ascii');
+    //a)
+    var ln = file_content2.split('\n');
+    console.log(ln);
+    //b)
+    for (var i in ln) {
+        var lnp = ln[i].split(',');
+        console.log(lnp[0].concat(" ", lnp[2], " ", lnp[4]));
+    }
+}
+catch (error) {
+    console.log(error);
+}
