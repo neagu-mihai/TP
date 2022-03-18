@@ -96,7 +96,7 @@ try {
 catch (error) {
     console.log(error);
 }
-//ex4
+//ex7
 var file_content5;
 try {
     file_content5 = fs.readFileSync('passwd', 'ascii');
@@ -108,6 +108,34 @@ try {
         enumloc.push(loc);
     }
     console.log(file_content5);
+}
+catch (error) {
+    console.log(error);
+}
+//ex8
+var file_content6;
+try {
+    file_content6 = fs.readFileSync('typescript_errors.txt', 'ascii');
+    var regex = /\^.+:/;
+    //a)
+    var ln = file_content6.split(regex);
+    console.log(ln.length - 1);
+    var regex2 = /.+\(|[^0-9]+\n+[a-z\s=0-9";]+|\)/;
+    //b)
+    var ln2 = file_content6.split(regex2);
+    ln2 = ln2.filter(function (element) { return element !== ''; });
+    console.log(ln2);
+    //c)
+    var regex3 = /.+:|.+:|\..+|^[a-z].+|\n|[a-z]+\[\];|\s+.+;|\}|[a-z]+\s.+\s\{/;
+    var ln3 = file_content6.split(regex3);
+    ln3 = ln3.filter(function (element) { return (element !== '' && element !== '\r' && element !== " \r"); });
+    var arrerr = [];
+    for (var i in ln2) {
+        var typ_err = ln3[i].includes("Type");
+        var err = { type: "Error", code: ln2[i], type_error: typ_err, description: ln3[i] };
+        arrerr.push(err);
+    }
+    console.log(arrerr);
 }
 catch (error) {
     console.log(error);

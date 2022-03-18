@@ -110,7 +110,7 @@ try {
 } catch(error) {
     console.log(error);
 }
-//ex4
+//ex7
 let file_content5: string;
 
 try {
@@ -125,6 +125,43 @@ try {
 
     }
     console.log(file_content5);
+} catch(error) {
+    console.log(error);
+}
+//ex8
+let file_content6: string;
+type Errors={
+    
+        type:String,
+        code:String,
+        type_error:boolean,
+        description:String;
+     
+    }
+try {
+    file_content6 = fs.readFileSync('typescript_errors.txt', 'ascii');
+    let regex: RegExp=/\^.+:/;
+    //a)
+    let ln=file_content6.split(regex);
+    console.log(ln.length-1);
+    let regex2: RegExp=/.+\(|[^0-9]+\n+[a-z\s=0-9";]+|\)/;
+    //b)
+    let ln2=file_content6.split(regex2);
+    ln2=ln2.filter(element => {return element !== ''; });
+    console.log(ln2);
+    //c)
+    let regex3: RegExp=/.+:|.+:|\..+|^[a-z].+|\n|[a-z]+\[\];|\s+.+;|\}|[a-z]+\s.+\s\{/;
+    let ln3=file_content6.split(regex3);
+    ln3=ln3.filter(element => {return (element !== '' && element !=='\r' && element !==" \r"); });
+    let arrerr:Array<Errors>=[];
+    for( let i in ln2)
+    {
+        let typ_err:boolean=ln3[i].includes("Type")
+        let err:Errors={type:"Error",code:ln2[i],type_error:typ_err,description:ln3[i]};
+        arrerr.push(err);
+    }
+    console.log(arrerr);
+
 } catch(error) {
     console.log(error);
 }
