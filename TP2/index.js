@@ -114,6 +114,9 @@ catch (error) {
 }
 //ex8
 var file_content6;
+function toString(err) {
+    return err.type + " " + err.code + " " + err.type_error + " " + err.description + "\n";
+}
 try {
     file_content6 = fs.readFileSync('typescript_errors.txt', 'ascii');
     var regex = /\^.+:/;
@@ -135,7 +138,17 @@ try {
         var err = { type: "Error", code: ln2[i], type_error: typ_err, description: ln3[i] };
         arrerr.push(err);
     }
-    console.log(arrerr);
+    var to_write = "";
+    for (var i in ln2) {
+        var temp = toString(arrerr[i]);
+        to_write = to_write.concat(temp);
+    }
+    try {
+        fs.writeFileSync('output.txt', to_write);
+    }
+    catch (error) {
+        console.log(error);
+    }
 }
 catch (error) {
     console.log(error);

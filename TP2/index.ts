@@ -138,6 +138,12 @@ type Errors={
         description:String;
      
     }
+   
+
+    function toString(err:Errors)
+   {
+       return err.type +" "+ err.code+ " "+ err.type_error+" "+err.description + "\n";
+   }
 try {
     file_content6 = fs.readFileSync('typescript_errors.txt', 'ascii');
     let regex: RegExp=/\^.+:/;
@@ -160,7 +166,18 @@ try {
         let err:Errors={type:"Error",code:ln2[i],type_error:typ_err,description:ln3[i]};
         arrerr.push(err);
     }
-    console.log(arrerr);
+    let to_write: string = "";
+    for( let i in ln2)
+    {
+        let temp=toString(arrerr[i]);
+        to_write=to_write.concat(temp);
+    }
+try {
+
+    fs.writeFileSync('output.txt', to_write);
+} catch(error) {
+    console.log(error);
+}
 
 } catch(error) {
     console.log(error);
