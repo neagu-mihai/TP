@@ -110,5 +110,22 @@ try {
 } catch(error) {
     console.log(error);
 }
+//ex4
+let file_content5: string;
 
+try {
+    file_content5 = fs.readFileSync('passwd', 'ascii');
+    let regex: RegExp=/\n|\z/;
+    let ln=file_content5.split(regex);
+    let enumloc:Array<File_loc>=[];
+    for( let i in ln)
+    {
+        let loc:File_loc={directory:ln[i]};
+        enumloc.push(loc);
+
+    }
+    console.log(file_content5);
+} catch(error) {
+    console.log(error);
+}
 

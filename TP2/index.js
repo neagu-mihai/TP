@@ -96,3 +96,19 @@ try {
 catch (error) {
     console.log(error);
 }
+//ex4
+var file_content5;
+try {
+    file_content5 = fs.readFileSync('passwd', 'ascii');
+    var regex = /\n|\z/;
+    var ln = file_content5.split(regex);
+    var enumloc = [];
+    for (var i in ln) {
+        var loc = { directory: ln[i] };
+        enumloc.push(loc);
+    }
+    console.log(file_content5);
+}
+catch (error) {
+    console.log(error);
+}
