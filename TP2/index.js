@@ -65,3 +65,34 @@ try {
 catch (error) {
     console.log(error);
 }
+//ex5
+var file_content4;
+try {
+    file_content4 = fs.readFileSync('BusinessFinancialData.csv', 'ascii');
+    //a)
+    var regex = /\n|\z/;
+    var ln = file_content4.split(regex);
+    console.log(ln);
+    //b)
+    var rexex2 = /,|\n/;
+    for (var i in ln) {
+        var lnp = ln[i].split(rexex2);
+        console.log(lnp[0] + " " + lnp[2] + " " + lnp[4]);
+    }
+    //ex6
+    var enumenp = [];
+    for (var i in ln) {
+        var lnp = ln[i].split(rexex2);
+        var enp = { code: lnp[0],
+            periode: lnp[1],
+            valeur_totale: lnp[2],
+            sujet: lnp[3],
+            categorie: lnp[4],
+            domaine: lnp[5] };
+        enumenp.push(enp);
+    }
+    console.log(enumenp);
+}
+catch (error) {
+    console.log(error);
+}
