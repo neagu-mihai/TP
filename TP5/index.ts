@@ -23,10 +23,7 @@ class StatementNode extends ASTNode {
         super();
     }
     toJSON() {
-        return {
-            id: "statements",
-            statements: this.statement
-        }
+            // TODO
     }
 }
 class DeclarationNode extends ASTNode {
@@ -34,13 +31,7 @@ class DeclarationNode extends ASTNode {
         super();
     }
     toJSON() {
-        return {
-            id: "declaration",
-            variable_type: this.variable_type,
-            variable: this.variable,
-            value: this.value
-
-        }
+        // TODO
     }
 }
 
@@ -49,10 +40,7 @@ class ValueNode extends ASTNode {
         super();
     }
     toJSON() {
-        return {
-            id: "value",
-            value: this.value
-        }
+        // TODO
 
     }
 }
