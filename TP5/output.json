@@ -1,6 +1,35 @@
 {
-    "id": "declaration",
-    "variable_type": "int",
-    "variable": "_var1",
-    "value": 5
+    "id": "statements",
+    "statements": [
+        {
+            "id": "declaration",
+            "variable_type": "int",
+            "variable": "_var1",
+            "value": {
+                "left": {
+                    "left": {
+                        "id": "value",
+                        "value": 5
+                    },
+                    "right": {
+                        "left": {
+                            "id": "value",
+                            "value": 2
+                        },
+                        "right": {
+                            "id": "value",
+                            "value": 4
+                        },
+                        "op": "+"
+                    },
+                    "op": "*"
+                },
+                "right": {
+                    "id": "value",
+                    "value": 7
+                },
+                "op": "/"
+            }
+        }
+    ]
 }

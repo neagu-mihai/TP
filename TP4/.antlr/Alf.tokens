@@ -1,0 +1,8 @@
+T__0=1
+NEWLINE=2
+WS=3
+EQUAL=4
+VARIABLE=5
+INT_VALUE=6
+';'=1
+'='=4

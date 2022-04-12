@@ -1,28 +1,51 @@
 import * as fs from 'fs';
- 
-let file_content: string;
-try {
-    file_content = fs.readFileSync('typescript_class.ts', 'ascii');
-    //a)
-    let regex: RegExp= new RegExp(/^(?!\s*import).+\r\n/,"gm");
-    let ln=file_content.split(regex);
-    ln=ln.filter(element => {return element !== ''; });
-    console.log(ln);
-    //b)
-    let regex2: RegExp= new RegExp(/^(?!\s*class).+\r\n/,"gm");
-    let ln2=file_content.split(regex2);
-    ln2=ln2.filter(element => {return element !== ''; });
-    console.log(ln2);
-    //c)
-    let regex3: RegExp= new RegExp(/^(?!\s*class).+\r\n|\s*class\s*[A-Za-z]+\s(?!extends).+\r\n/,"gm");
-    let ln3=file_content.split(regex3);
-    ln3=ln3.filter(element => {return element !== ''; });
-    console.log(ln3);
-    //d)
-    let regex4: RegExp= new RegExp(/^(?!\s*function).+\r\n/,"gm");
-    let ln4=file_content.split(regex4);
-    ln4=ln4.filter(element => {return element !== ''; });
-    console.log(ln4);
-} catch(error) {
-    console.log(error);
+
+let data: string = fs.readFileSync('./typescript_class.ts').toString();
+let lines: string[] = data.split(/\r?\n/);
+let libraries: string[] = [];
+let all_classes: string[] = [];
+
+interface ChildClass {
+    name: string,
+    parent_name: string
 }
+let child_classes: ChildClass[] = [];
+
+interface FunctionDeclaration {
+    name: string,
+    return_type: string
+}
+let all_functions: FunctionDeclaration[] = [];
+
+for(let line of lines) {
+    let libraries_match: RegExpMatchArray|null = line.match(/(import \* as )([a-zA-Z\-0-9\@\/]*)( from) ([a-zA-Z\-\s0-9\@\/'"]*)/);
+    if(libraries_match) {
+        libraries.push(libraries_match[4].slice(1,-1));
+    }
+
+    let all_classes_match: RegExpMatchArray|null = line.match(/(class) ([a-zA-Z]+)/);
+    if(all_classes_match) {
+        all_classes.push(all_classes_match[2]);
+    }
+
+    let child_classes_match: RegExpMatchArray|null = line.match(/(class) ([a-zA-Z]+) extends ([a-zA-Z]+)/);
+    if(child_classes_match) {
+        let child_class: ChildClass = {
+            name: child_classes_match[2],
+            parent_name: child_classes_match[3]
+        }
+        child_classes.push(child_class);
+    }
+    let functions_match: RegExpMatchArray|null = line.match(/(function) ([A-Za-z0-9\_]+)\s?([a-zA-Z\(\)\:\s0-9\_,]+\s?\:\s?([a-z]+))/);
+    if(functions_match) {
+        let function_declaration: FunctionDeclaration = {
+            name: functions_match[2],
+            return_type: functions_match[4]
+        }
+        all_functions.push(function_declaration);
+    }
+}
+console.log(libraries);
+console.log(all_classes);
+console.log(child_classes);
+console.log(all_functions);

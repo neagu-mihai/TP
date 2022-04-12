@@ -3,7 +3,18 @@
 
 import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
-import { DeclarationStatementContext } from "./AlfParser";
+import { ExpressionMultiplyContext } from "./AlfParser";
+import { ExpressionDivisionContext } from "./AlfParser";
+import { ExpressionRemContext } from "./AlfParser";
+import { ExpressionAdditionContext } from "./AlfParser";
+import { ExpressionSubtractionContext } from "./AlfParser";
+import { ExpressionParanthesisContext } from "./AlfParser";
+import { NumberContext } from "./AlfParser";
+import { VariableContext } from "./AlfParser";
+import { MultilineProgContext } from "./AlfParser";
+import { SinglelineProgContext } from "./AlfParser";
+import { DeclarationRuleContext } from "./AlfParser";
+import { ExpressionRuleContext } from "./AlfParser";
 import { TypeIntContext } from "./AlfParser";
 import { TypeFloatContext } from "./AlfParser";
 import { TypeStringContext } from "./AlfParser";
@@ -11,10 +22,13 @@ import { VariableDeclarationContext } from "./AlfParser";
 import { ValueIntContext } from "./AlfParser";
 import { ValueFloatContext } from "./AlfParser";
 import { ValueStringContext } from "./AlfParser";
+import { ValuaVariableContext } from "./AlfParser";
 import { StartContext } from "./AlfParser";
+import { StatementContext } from "./AlfParser";
 import { DeclarationContext } from "./AlfParser";
 import { TypeContext } from "./AlfParser";
 import { ValueContext } from "./AlfParser";
+import { ExpressionContext } from "./AlfParser";
 
 
 /**
@@ -23,17 +37,160 @@ import { ValueContext } from "./AlfParser";
  */
 export interface AlfListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by the `declarationStatement`
-	 * labeled alternative in `AlfParser.start`.
+	 * Enter a parse tree produced by the `expressionMultiply`
+	 * labeled alternative in `AlfParser.expression`.
 	 * @param ctx the parse tree
 	 */
-	enterDeclarationStatement?: (ctx: DeclarationStatementContext) => void;
+	enterExpressionMultiply?: (ctx: ExpressionMultiplyContext) => void;
 	/**
-	 * Exit a parse tree produced by the `declarationStatement`
+	 * Exit a parse tree produced by the `expressionMultiply`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionMultiply?: (ctx: ExpressionMultiplyContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `expressionDivision`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterExpressionDivision?: (ctx: ExpressionDivisionContext) => void;
+	/**
+	 * Exit a parse tree produced by the `expressionDivision`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionDivision?: (ctx: ExpressionDivisionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `expressionRem`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterExpressionRem?: (ctx: ExpressionRemContext) => void;
+	/**
+	 * Exit a parse tree produced by the `expressionRem`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionRem?: (ctx: ExpressionRemContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `expressionAddition`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterExpressionAddition?: (ctx: ExpressionAdditionContext) => void;
+	/**
+	 * Exit a parse tree produced by the `expressionAddition`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionAddition?: (ctx: ExpressionAdditionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `expressionSubtraction`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterExpressionSubtraction?: (ctx: ExpressionSubtractionContext) => void;
+	/**
+	 * Exit a parse tree produced by the `expressionSubtraction`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionSubtraction?: (ctx: ExpressionSubtractionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `expressionParanthesis`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterExpressionParanthesis?: (ctx: ExpressionParanthesisContext) => void;
+	/**
+	 * Exit a parse tree produced by the `expressionParanthesis`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionParanthesis?: (ctx: ExpressionParanthesisContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `number`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterNumber?: (ctx: NumberContext) => void;
+	/**
+	 * Exit a parse tree produced by the `number`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitNumber?: (ctx: NumberContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `variable`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterVariable?: (ctx: VariableContext) => void;
+	/**
+	 * Exit a parse tree produced by the `variable`
+	 * labeled alternative in `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitVariable?: (ctx: VariableContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `multilineProg`
 	 * labeled alternative in `AlfParser.start`.
 	 * @param ctx the parse tree
 	 */
-	exitDeclarationStatement?: (ctx: DeclarationStatementContext) => void;
+	enterMultilineProg?: (ctx: MultilineProgContext) => void;
+	/**
+	 * Exit a parse tree produced by the `multilineProg`
+	 * labeled alternative in `AlfParser.start`.
+	 * @param ctx the parse tree
+	 */
+	exitMultilineProg?: (ctx: MultilineProgContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `singlelineProg`
+	 * labeled alternative in `AlfParser.start`.
+	 * @param ctx the parse tree
+	 */
+	enterSinglelineProg?: (ctx: SinglelineProgContext) => void;
+	/**
+	 * Exit a parse tree produced by the `singlelineProg`
+	 * labeled alternative in `AlfParser.start`.
+	 * @param ctx the parse tree
+	 */
+	exitSinglelineProg?: (ctx: SinglelineProgContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `declarationRule`
+	 * labeled alternative in `AlfParser.statement`.
+	 * @param ctx the parse tree
+	 */
+	enterDeclarationRule?: (ctx: DeclarationRuleContext) => void;
+	/**
+	 * Exit a parse tree produced by the `declarationRule`
+	 * labeled alternative in `AlfParser.statement`.
+	 * @param ctx the parse tree
+	 */
+	exitDeclarationRule?: (ctx: DeclarationRuleContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `expressionRule`
+	 * labeled alternative in `AlfParser.statement`.
+	 * @param ctx the parse tree
+	 */
+	enterExpressionRule?: (ctx: ExpressionRuleContext) => void;
+	/**
+	 * Exit a parse tree produced by the `expressionRule`
+	 * labeled alternative in `AlfParser.statement`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionRule?: (ctx: ExpressionRuleContext) => void;
 
 	/**
 	 * Enter a parse tree produced by the `typeInt`
@@ -127,6 +284,19 @@ export interface AlfListener extends ParseTreeListener {
 	exitValueString?: (ctx: ValueStringContext) => void;
 
 	/**
+	 * Enter a parse tree produced by the `valuaVariable`
+	 * labeled alternative in `AlfParser.value`.
+	 * @param ctx the parse tree
+	 */
+	enterValuaVariable?: (ctx: ValuaVariableContext) => void;
+	/**
+	 * Exit a parse tree produced by the `valuaVariable`
+	 * labeled alternative in `AlfParser.value`.
+	 * @param ctx the parse tree
+	 */
+	exitValuaVariable?: (ctx: ValuaVariableContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `AlfParser.start`.
 	 * @param ctx the parse tree
 	 */
@@ -136,6 +306,17 @@ export interface AlfListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitStart?: (ctx: StartContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AlfParser.statement`.
+	 * @param ctx the parse tree
+	 */
+	enterStatement?: (ctx: StatementContext) => void;
+	/**
+	 * Exit a parse tree produced by `AlfParser.statement`.
+	 * @param ctx the parse tree
+	 */
+	exitStatement?: (ctx: StatementContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AlfParser.declaration`.
@@ -169,5 +350,16 @@ export interface AlfListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitValue?: (ctx: ValueContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterExpression?: (ctx: ExpressionContext) => void;
+	/**
+	 * Exit a parse tree produced by `AlfParser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpression?: (ctx: ExpressionContext) => void;
 }
 

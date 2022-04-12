@@ -1,4 +1,4 @@
-// Generated from /Users/diana_ghindaoanu/Documents/ALF_2022/TP_2022/TP5/demo/Alf.g4 by ANTLR 4.8
+// Generated from /Users/diana_ghindaoanu/Documents/ALF_2022/ALF_TP_2021/TP5/Alf.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

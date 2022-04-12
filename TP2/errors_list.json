@@ -1,0 +1,26 @@
+[
+   {
+      "type": "error",
+      "code": "2322",
+      "type_error": true,
+      "description": " Type 'string' is not assignable to type 'number'"
+   },
+   {
+      "type": "error",
+      "code": "2300",
+      "type_error": false,
+      "description": " Duplicate identifier 'x'"
+   },
+   {
+      "type": "error",
+      "code": "2451",
+      "type_error": false,
+      "description": " Cannot redeclare block-scoped variable 'x'"
+   },
+   {
+      "type": "error",
+      "code": "2322",
+      "type_error": true,
+      "description": " Type 'string' is not assignable to type 'object'"
+   }
+]

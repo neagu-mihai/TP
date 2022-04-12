@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "antlr4",
+            "type": "antlr-debug",
+            "request": "launch",
+            //"input": "${workspaceFolder}/${command:AskForTestInput}",
+            "input": "E:\\facultate\\ALF\\lab_2021\\TP4\\text_and_numbers.txt",
+            "grammar": "E:\\facultate\\ALF\\lab_2021\\TP4\\Alf.g4",
+            "startRule": "prog",
+            "printParseTree": true,
+            "visualParseTree": true,
+  //          "actionFile": "E:\\facultate\\ALF\\antlr\\test-antlr.js",
+        }
+    ]
+}
