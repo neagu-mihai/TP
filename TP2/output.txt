@@ -1,0 +1,4 @@
+Error 2322 true  Type 'string' is not assignable to type 'number'
+Error 2300 false  Duplicate identifier 'x'
+Error 2451 false  Cannot redeclare block-scoped variable 'x'
+Error 2322 true  Type 'string' is not assignable to type 'object'
