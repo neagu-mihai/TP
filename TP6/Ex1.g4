@@ -15,12 +15,15 @@ declaration         : type VARIABLE EQ expression                   #variableDec
 type                : INT                                           #typeInt
                     | FLOAT                                         #typeFloat
                     | STRING                                        #typeString
+                    | BOOLEAN                                       #typeBool
                     ;
  
 value               : INT_NUMBER                                    #valueInt
                     | FLOAT_NUMBER                                  #valueFloat
                     | STRING_TEXT                                   #valueString
                     | VARIABLE                                      #valueVariable
+                    | TRUE                                          #valueTrue
+                    | FALSE                                         #valueFlase
                     ;
  
 expression          : left=expression op=MUL right=expression       #expressionMultiply
@@ -29,6 +32,9 @@ expression          : left=expression op=MUL right=expression       #expressionM
                     | left=expression op=ADD right=expression       #expressionAddition
                     | left=expression op=SUB right=expression       #expressionSubtraction
                     | LP expression RP                              #expressionParanthesis
+                    | left=expression op=AND right=expression       #expressionAnd
+                    | left=expression op=OR right=expression        #expressionOr
+                    | NOT expression                                #expressionNot
                     | value                                         #expressionValue
                     ;
  
@@ -75,6 +81,7 @@ REM                 :   '%';
 INT                 :   'int';
 FLOAT               :   'float';
 STRING              :   'string';
+BOOLEAN             :   'bool';
 LP                  :   '(';
 RP                  :   ')';
 EQ                  :   '=';
@@ -82,3 +89,8 @@ SEMICOLON           :   ';';
 INT_NUMBER          :   ([0-9]+);
 FLOAT_NUMBER        :   ([0-9]+'.'[0-9]+);
 STRING_TEXT         :   ('"'~["]+'"'|'\''~[']+'\'');
+TRUE                :   'true';
+FALSE               :    'false';
+OR                  :    '||';
+AND                 :     '&&';
+NOT                 :     '!';

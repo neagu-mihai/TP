@@ -9,6 +9,9 @@ import { ExpressionRemContext } from "./Ex1Parser";
 import { ExpressionAdditionContext } from "./Ex1Parser";
 import { ExpressionSubtractionContext } from "./Ex1Parser";
 import { ExpressionParanthesisContext } from "./Ex1Parser";
+import { ExpressionAndContext } from "./Ex1Parser";
+import { ExpressionOrContext } from "./Ex1Parser";
+import { ExpressionNotContext } from "./Ex1Parser";
 import { ExpressionValueContext } from "./Ex1Parser";
 import { MultilineProgContext } from "./Ex1Parser";
 import { SinglelineProgContext } from "./Ex1Parser";
@@ -19,11 +22,14 @@ import { VariableAttributionContext } from "./Ex1Parser";
 import { TypeIntContext } from "./Ex1Parser";
 import { TypeFloatContext } from "./Ex1Parser";
 import { TypeStringContext } from "./Ex1Parser";
+import { TypeBoolContext } from "./Ex1Parser";
 import { VariableDeclarationContext } from "./Ex1Parser";
 import { ValueIntContext } from "./Ex1Parser";
 import { ValueFloatContext } from "./Ex1Parser";
 import { ValueStringContext } from "./Ex1Parser";
 import { ValueVariableContext } from "./Ex1Parser";
+import { ValueTrueContext } from "./Ex1Parser";
+import { ValueFlaseContext } from "./Ex1Parser";
 import { StartContext } from "./Ex1Parser";
 import { StatementContext } from "./Ex1Parser";
 import { DeclarationContext } from "./Ex1Parser";
@@ -115,6 +121,45 @@ export interface Ex1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitExpressionParanthesis?: (ctx: ExpressionParanthesisContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `expressionAnd`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterExpressionAnd?: (ctx: ExpressionAndContext) => void;
+	/**
+	 * Exit a parse tree produced by the `expressionAnd`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionAnd?: (ctx: ExpressionAndContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `expressionOr`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterExpressionOr?: (ctx: ExpressionOrContext) => void;
+	/**
+	 * Exit a parse tree produced by the `expressionOr`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionOr?: (ctx: ExpressionOrContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `expressionNot`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterExpressionNot?: (ctx: ExpressionNotContext) => void;
+	/**
+	 * Exit a parse tree produced by the `expressionNot`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionNot?: (ctx: ExpressionNotContext) => void;
 
 	/**
 	 * Enter a parse tree produced by the `expressionValue`
@@ -247,6 +292,19 @@ export interface Ex1Listener extends ParseTreeListener {
 	exitTypeString?: (ctx: TypeStringContext) => void;
 
 	/**
+	 * Enter a parse tree produced by the `typeBool`
+	 * labeled alternative in `Ex1Parser.type`.
+	 * @param ctx the parse tree
+	 */
+	enterTypeBool?: (ctx: TypeBoolContext) => void;
+	/**
+	 * Exit a parse tree produced by the `typeBool`
+	 * labeled alternative in `Ex1Parser.type`.
+	 * @param ctx the parse tree
+	 */
+	exitTypeBool?: (ctx: TypeBoolContext) => void;
+
+	/**
 	 * Enter a parse tree produced by the `variableDeclaration`
 	 * labeled alternative in `Ex1Parser.declaration`.
 	 * @param ctx the parse tree
@@ -310,6 +368,32 @@ export interface Ex1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitValueVariable?: (ctx: ValueVariableContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `valueTrue`
+	 * labeled alternative in `Ex1Parser.value`.
+	 * @param ctx the parse tree
+	 */
+	enterValueTrue?: (ctx: ValueTrueContext) => void;
+	/**
+	 * Exit a parse tree produced by the `valueTrue`
+	 * labeled alternative in `Ex1Parser.value`.
+	 * @param ctx the parse tree
+	 */
+	exitValueTrue?: (ctx: ValueTrueContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `valueFlase`
+	 * labeled alternative in `Ex1Parser.value`.
+	 * @param ctx the parse tree
+	 */
+	enterValueFlase?: (ctx: ValueFlaseContext) => void;
+	/**
+	 * Exit a parse tree produced by the `valueFlase`
+	 * labeled alternative in `Ex1Parser.value`.
+	 * @param ctx the parse tree
+	 */
+	exitValueFlase?: (ctx: ValueFlaseContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `Ex1Parser.start`.

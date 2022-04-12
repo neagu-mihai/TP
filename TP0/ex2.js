@@ -1,11 +1,33 @@
 "use strict";
-exports.__esModule = true;
-var http = require("http");
-http.get('http://cat-fact.herokuapp.com/facts', function (res) {
-    res.on('data', function (chunk) {
-        var catFacts = JSON.parse(chunk.toString());
-        console.log(catFacts);
-        var fact = catFacts.find(function (elem) { return elem._id === '58e008780aac31001185ed05'; });
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const http = __importStar(require("http"));
+http.get('http://cat-fact.herokuapp.com/facts', (res) => {
+    res.on('data', (chunk) => {
+        const catFacts = JSON.parse(chunk.toString());
+        const fact = catFacts.find(elem => elem._id === '58e008780aac31001185ed05');
         if (!fact)
             throw Error('Fact not found for this id');
         console.log(fact.text);

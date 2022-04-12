@@ -1,30 +1,62 @@
 "use strict";
-exports.__esModule = true;
-var fs = require("fs");
-var file_content;
-try {
-    file_content = fs.readFileSync('typescript_class.ts', 'ascii');
-    //a)
-    var regex = new RegExp(/^(?!\s*import).+\r\n/, "gm");
-    var ln = file_content.split(regex);
-    ln = ln.filter(function (element) { return element !== ''; });
-    console.log(ln);
-    //b)
-    var regex2 = new RegExp(/^(?!\s*class).+\r\n/, "gm");
-    var ln2 = file_content.split(regex2);
-    ln2 = ln2.filter(function (element) { return element !== ''; });
-    console.log(ln2);
-    //c)
-    var regex3 = new RegExp(/^(?!\s*class).+\r\n|\s*class\s*[A-Za-z]+\s(?!extends).+\r\n/, "gm");
-    var ln3 = file_content.split(regex3);
-    ln3 = ln3.filter(function (element) { return element !== ''; });
-    console.log(ln3);
-    //d)
-    var regex4 = new RegExp(/^(?!\s*function).+\r\n/, "gm");
-    var ln4 = file_content.split(regex4);
-    ln4 = ln4.filter(function (element) { return element !== ''; });
-    console.log(ln4);
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs = __importStar(require("fs"));
+let data = fs.readFileSync('./typescript_class.ts').toString();
+let lines = data.split(/\r?\n/);
+let libraries = [];
+let all_classes = [];
+let child_classes = [];
+let all_functions = [];
+for (let line of lines) {
+    let libraries_match = line.match(/(import \* as )([a-zA-Z\-0-9\@\/]*)( from) ([a-zA-Z\-\s0-9\@\/'"]*)/);
+    if (libraries_match) {
+        libraries.push(libraries_match[4].slice(1, -1));
+    }
+    let all_classes_match = line.match(/(class) ([a-zA-Z]+)/);
+    if (all_classes_match) {
+        all_classes.push(all_classes_match[2]);
+    }
+    let child_classes_match = line.match(/(class) ([a-zA-Z]+) extends ([a-zA-Z]+)/);
+    if (child_classes_match) {
+        let child_class = {
+            name: child_classes_match[2],
+            parent_name: child_classes_match[3]
+        };
+        child_classes.push(child_class);
+    }
+    let functions_match = line.match(/(function) ([A-Za-z0-9\_]+)\s?([a-zA-Z\(\)\:\s0-9\_,]+\s?\:\s?([a-z]+))/);
+    if (functions_match) {
+        let function_declaration = {
+            name: functions_match[2],
+            return_type: functions_match[4]
+        };
+        all_functions.push(function_declaration);
+    }
 }
-catch (error) {
-    console.log(error);
-}
+console.log(libraries);
+console.log(all_classes);
+console.log(child_classes);
+console.log(all_functions);

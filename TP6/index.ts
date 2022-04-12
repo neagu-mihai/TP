@@ -1,6 +1,6 @@
 import { CharStreams, CodePointCharStream, CommonTokenStream, Token } from 'antlr4ts';
 import { Ex1Lexer } from './Ex1Lexer.js';
-import { Ex1Parser, ExpressionAdditionContext, ExpressionDivisionContext, ExpressionMultiplyContext, ExpressionParanthesisContext, ExpressionRemContext, ExpressionSubtractionContext, MultilineProgContext, SinglelineProgContext, TypeFloatContext, TypeIntContext, TypeStringContext, ValueFloatContext, ValueIntContext, ValueStringContext, VariableDeclarationContext, ExpressionValueContext, ValueVariableContext, VariableAttributionContext } from './Ex1Parser.js';
+import { Ex1Parser, ExpressionAdditionContext, ExpressionDivisionContext, ExpressionMultiplyContext, ExpressionParanthesisContext, ExpressionRemContext, ExpressionSubtractionContext, MultilineProgContext, SinglelineProgContext, TypeFloatContext, TypeIntContext, TypeStringContext, ValueFloatContext, ValueIntContext, ValueStringContext, VariableDeclarationContext, ExpressionValueContext, ValueVariableContext, VariableAttributionContext, ExpressionAndContext, ExpressionOrContext, ExpressionNotContext, TypeBoolContext, ValueFlaseContext, ValueTrueContext } from './Ex1Parser.js';
 import { Ex1Visitor } from './Ex1Visitor.js';
 import * as fs from 'fs';
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
@@ -25,6 +25,7 @@ class StatementsNode extends ASTNode {
         return {
             id: "statements",
             statements: this.statements,
+            line: this.line
         }
     }
 }
@@ -38,6 +39,7 @@ class DeclarationNode extends ASTNode {
             variable_type: this.variable_type,
             variable: this.variable,
             value: this.value,
+            line: this.line
         }
     }
 }
@@ -50,6 +52,7 @@ class ValueNode extends ASTNode {
         return {
             id: "value",
             value: this.value,
+            line: this.line
         }
     }
 }
@@ -60,6 +63,7 @@ class TypeNode extends ASTNode {
     toJSON() {
         return  {
             type: this.type_name,
+            line: this.line
         }
     }
 }
@@ -73,6 +77,7 @@ class Expression extends ASTNode {
             left: this.left,
             right: this.right,
             op: this.op,
+            line: this.line
         }
     }
 }
@@ -86,6 +91,7 @@ class AttributionNode extends ASTNode {
             id: "attribution",
             to: this.variable,
             from: this.value,
+            line: this.line
         }
     }
 }
@@ -166,6 +172,18 @@ class MyEx1Visitor extends AbstractParseTreeVisitor<ASTNode> implements Ex1Visit
             ctx.STRING_TEXT().symbol.line
         );
     }
+    visitValueFlase(ctx: ValueFlaseContext):ValueNode {
+        return new ValueNode(
+            ctx.FALSE().text,
+            ctx.FALSE().symbol.line
+        )
+    }
+    visitValueTrue(ctx: ValueTrueContext):ValueNode {
+        return new ValueNode(
+            ctx.TRUE().text,
+            ctx.TRUE().symbol.line
+        )
+    }
     /** TODO 1: Visit the boolean value */
  
     visitTypeInt(ctx: TypeIntContext): TypeNode {
@@ -185,6 +203,12 @@ class MyEx1Visitor extends AbstractParseTreeVisitor<ASTNode> implements Ex1Visit
             ctx.FLOAT().text,
             ctx.FLOAT().symbol.line
         )
+    }
+    visitTypeBool (ctx: TypeBoolContext) : TypeNode{
+        return new TypeNode(
+            ctx.BOOLEAN().text,
+            ctx.BOOLEAN().symbol.line 
+            )  
     }
     /** TODO 1: Visit the boolean type */
  
@@ -242,7 +266,27 @@ class MyEx1Visitor extends AbstractParseTreeVisitor<ASTNode> implements Ex1Visit
 		    return new ValueNode((this.visit(ctx.value()) as ValueNode).value, ctx.value()._start.line);
         } else throw new Error();
 	}
+    visitExpressionAnd (ctx: ExpressionAndContext) :Expression{
+        const left = this.visit(ctx.expression(0));
+		const right = this.visit(ctx.expression(1));
+		const op = ctx._op;
  
+		if(op.text) {
+			return new Expression(op.text, left as Expression, right as Expression, ctx._op.line);
+		} else throw new Error();
+    }
+    visitExpressionOr (ctx: ExpressionOrContext) :Expression{
+        const left = this.visit(ctx.expression(0));
+		const right = this.visit(ctx.expression(1));
+		const op = ctx._op;
+ 
+		if(op.text) {
+			return new Expression(op.text, left as Expression, right as Expression, ctx._op.line);
+		} else throw new Error();
+    }
+    visitExpressionNot(ctx: ExpressionNotContext){
+        return this.visit(ctx.expression());
+    }
     /**TODO 1: Visit every type of boolean expression */
  
  
