@@ -16,6 +16,7 @@ type                : INT                                           #typeInt
                     | FLOAT                                         #typeFloat
                     | STRING                                        #typeString
                     | BOOLEAN                                       #typeBool
+                    | LIST                                          #typeList
                     ;
  
 value               : INT_NUMBER                                    #valueInt
@@ -35,6 +36,8 @@ expression          : left=expression op=MUL right=expression       #expressionM
                     | left=expression op=AND right=expression       #expressionAnd
                     | left=expression op=OR right=expression        #expressionOr
                     | NOT expression                                #expressionNot
+                    | LA expression RA                              #expressionArray
+                    | left=expression op=COMMA right=expression     #expressionArrElem
                     | value                                         #expressionValue
                     ;
  
@@ -94,3 +97,7 @@ FALSE               :    'false';
 OR                  :    '||';
 AND                 :     '&&';
 NOT                 :     '!';
+LIST                :     'list';
+LA                  :     '[';
+RA                  :     ']';
+COMMA               :     ',';

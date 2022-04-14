@@ -1,6 +1,6 @@
 import { CharStreams, CodePointCharStream, CommonTokenStream, Token } from 'antlr4ts';
 import { Ex1Lexer } from './Ex1Lexer.js';
-import { Ex1Parser, ExpressionAdditionContext, ExpressionDivisionContext, ExpressionMultiplyContext, ExpressionParanthesisContext, ExpressionRemContext, ExpressionSubtractionContext, MultilineProgContext, SinglelineProgContext, TypeFloatContext, TypeIntContext, TypeStringContext, ValueFloatContext, ValueIntContext, ValueStringContext, VariableDeclarationContext, ExpressionValueContext, ValueVariableContext, VariableAttributionContext, ExpressionAndContext, ExpressionOrContext, ExpressionNotContext, TypeBoolContext, ValueFlaseContext, ValueTrueContext } from './Ex1Parser.js';
+import { Ex1Parser, ExpressionAdditionContext, ExpressionDivisionContext, ExpressionMultiplyContext, ExpressionParanthesisContext, ExpressionRemContext, ExpressionSubtractionContext, MultilineProgContext, SinglelineProgContext, TypeFloatContext, TypeIntContext, TypeStringContext, ValueFloatContext, ValueIntContext, ValueStringContext, VariableDeclarationContext, ExpressionValueContext, ValueVariableContext, VariableAttributionContext, ExpressionAndContext, ExpressionOrContext, ExpressionNotContext, TypeBoolContext, ValueFlaseContext, ValueTrueContext, ExpressionArrayContext, ExpressionArrElemContext, TypeListContext } from './Ex1Parser.js';
 import { Ex1Visitor } from './Ex1Visitor.js';
 import * as fs from 'fs';
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
@@ -210,6 +210,12 @@ class MyEx1Visitor extends AbstractParseTreeVisitor<ASTNode> implements Ex1Visit
             ctx.BOOLEAN().symbol.line 
             )  
     }
+    visitTypeList(ctx: TypeListContext) :TypeNode{
+        return new TypeNode(
+            ctx.LIST().text,
+            ctx.LIST().symbol.line 
+            )  
+    }
     /** TODO 1: Visit the boolean type */
  
     visitExpressionMultiply(ctx: ExpressionMultiplyContext): Expression {
@@ -288,7 +294,19 @@ class MyEx1Visitor extends AbstractParseTreeVisitor<ASTNode> implements Ex1Visit
         return this.visit(ctx.expression());
     }
     /**TODO 1: Visit every type of boolean expression */
+    visitExpressionArray (ctx: ExpressionArrayContext){
+        return this.visit(ctx.expression());
+    }
+    visitExpressionArrElem(ctx: ExpressionArrElemContext):Expression{
+        const left = this.visit(ctx.expression(0));
+		const right = this.visit(ctx.expression(1));
+		const op = ctx._op;
  
+		if(op.text) {
+			return new Expression(op.text, left as Expression, right as Expression, ctx._op.line);
+		} else throw new Error();
+    }
+    
  
     /**TODO 4: Visit list declaration */
     visitVariableAttribution(ctx: VariableAttributionContext): AttributionNode {

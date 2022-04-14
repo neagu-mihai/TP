@@ -1,1 +1,1 @@
- string _var2 = "FILS " + "ALF"; 
+ list _var1 = [10, 5.5, 'alf', true, _var2]; 
