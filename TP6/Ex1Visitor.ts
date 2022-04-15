@@ -14,6 +14,9 @@ import { ExpressionOrContext } from "./Ex1Parser";
 import { ExpressionNotContext } from "./Ex1Parser";
 import { ExpressionArrayContext } from "./Ex1Parser";
 import { ExpressionArrElemContext } from "./Ex1Parser";
+import { ExpressionFunctElemContext } from "./Ex1Parser";
+import { ExpressionMultiContext } from "./Ex1Parser";
+import { ExpressionReturnContext } from "./Ex1Parser";
 import { ExpressionValueContext } from "./Ex1Parser";
 import { MultilineProgContext } from "./Ex1Parser";
 import { SinglelineProgContext } from "./Ex1Parser";
@@ -26,7 +29,10 @@ import { TypeFloatContext } from "./Ex1Parser";
 import { TypeStringContext } from "./Ex1Parser";
 import { TypeBoolContext } from "./Ex1Parser";
 import { TypeListContext } from "./Ex1Parser";
+import { TypeFunctionContext } from "./Ex1Parser";
 import { VariableDeclarationContext } from "./Ex1Parser";
+import { FonctDeclarationContext } from "./Ex1Parser";
+import { MultiDeclartionContext } from "./Ex1Parser";
 import { ValueIntContext } from "./Ex1Parser";
 import { ValueFloatContext } from "./Ex1Parser";
 import { ValueStringContext } from "./Ex1Parser";
@@ -139,6 +145,30 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 	visitExpressionArrElem?: (ctx: ExpressionArrElemContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by the `expressionFunctElem`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitExpressionFunctElem?: (ctx: ExpressionFunctElemContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `expressionMulti`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitExpressionMulti?: (ctx: ExpressionMultiContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `expressionReturn`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitExpressionReturn?: (ctx: ExpressionReturnContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by the `expressionValue`
 	 * labeled alternative in `Ex1Parser.expression`.
 	 * @param ctx the parse tree
@@ -235,12 +265,36 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 	visitTypeList?: (ctx: TypeListContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by the `typeFunction`
+	 * labeled alternative in `Ex1Parser.type`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitTypeFunction?: (ctx: TypeFunctionContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by the `variableDeclaration`
 	 * labeled alternative in `Ex1Parser.declaration`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitVariableDeclaration?: (ctx: VariableDeclarationContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `fonctDeclaration`
+	 * labeled alternative in `Ex1Parser.declaration`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitFonctDeclaration?: (ctx: FonctDeclarationContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `multiDeclartion`
+	 * labeled alternative in `Ex1Parser.declaration`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitMultiDeclartion?: (ctx: MultiDeclartionContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by the `valueInt`

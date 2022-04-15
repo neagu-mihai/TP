@@ -1,1 +1,7 @@
- list _var1 = [10, 5.5, 'alf', true, _var2]; 
+function _functionName (int _var1=0, string _var2="alf", bool _var3=true)
+{
+    _var1 = _var2 + "2021";
+    _var4 = false;
+
+    return 3+5/7;
+};

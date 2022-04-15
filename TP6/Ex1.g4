@@ -10,6 +10,8 @@ statement           : declaration                                   #declaration
                     ;
  
 declaration         : type VARIABLE EQ expression                   #variableDeclaration
+                    | type VARIABLE LP declaration RP LF expression RF #fonctDeclaration
+                    | declaration COMMA declaration                 #multiDeclartion 
                     ;
  
 type                : INT                                           #typeInt
@@ -17,6 +19,7 @@ type                : INT                                           #typeInt
                     | STRING                                        #typeString
                     | BOOLEAN                                       #typeBool
                     | LIST                                          #typeList
+                    | FUNCTION                                      #typeFunction
                     ;
  
 value               : INT_NUMBER                                    #valueInt
@@ -38,6 +41,9 @@ expression          : left=expression op=MUL right=expression       #expressionM
                     | NOT expression                                #expressionNot
                     | LA expression RA                              #expressionArray
                     | left=expression op=COMMA right=expression     #expressionArrElem
+                    | left=expression op=EQ right=expression        #expressionFunctElem
+                    | left=expression op=SEMICOLON right=expression #expressionMulti
+                    | RETURN expression                             #expressionReturn
                     | value                                         #expressionValue
                     ;
  
@@ -101,3 +107,7 @@ LIST                :     'list';
 LA                  :     '[';
 RA                  :     ']';
 COMMA               :     ',';
+FUNCTION            : 'function';
+LF                  :     '{';
+RF                  :     '}';
+RETURN              : 'return';

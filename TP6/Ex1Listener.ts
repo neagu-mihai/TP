@@ -14,6 +14,9 @@ import { ExpressionOrContext } from "./Ex1Parser";
 import { ExpressionNotContext } from "./Ex1Parser";
 import { ExpressionArrayContext } from "./Ex1Parser";
 import { ExpressionArrElemContext } from "./Ex1Parser";
+import { ExpressionFunctElemContext } from "./Ex1Parser";
+import { ExpressionMultiContext } from "./Ex1Parser";
+import { ExpressionReturnContext } from "./Ex1Parser";
 import { ExpressionValueContext } from "./Ex1Parser";
 import { MultilineProgContext } from "./Ex1Parser";
 import { SinglelineProgContext } from "./Ex1Parser";
@@ -26,7 +29,10 @@ import { TypeFloatContext } from "./Ex1Parser";
 import { TypeStringContext } from "./Ex1Parser";
 import { TypeBoolContext } from "./Ex1Parser";
 import { TypeListContext } from "./Ex1Parser";
+import { TypeFunctionContext } from "./Ex1Parser";
 import { VariableDeclarationContext } from "./Ex1Parser";
+import { FonctDeclarationContext } from "./Ex1Parser";
+import { MultiDeclartionContext } from "./Ex1Parser";
 import { ValueIntContext } from "./Ex1Parser";
 import { ValueFloatContext } from "./Ex1Parser";
 import { ValueStringContext } from "./Ex1Parser";
@@ -191,6 +197,45 @@ export interface Ex1Listener extends ParseTreeListener {
 	exitExpressionArrElem?: (ctx: ExpressionArrElemContext) => void;
 
 	/**
+	 * Enter a parse tree produced by the `expressionFunctElem`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterExpressionFunctElem?: (ctx: ExpressionFunctElemContext) => void;
+	/**
+	 * Exit a parse tree produced by the `expressionFunctElem`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionFunctElem?: (ctx: ExpressionFunctElemContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `expressionMulti`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterExpressionMulti?: (ctx: ExpressionMultiContext) => void;
+	/**
+	 * Exit a parse tree produced by the `expressionMulti`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionMulti?: (ctx: ExpressionMultiContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `expressionReturn`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 */
+	enterExpressionReturn?: (ctx: ExpressionReturnContext) => void;
+	/**
+	 * Exit a parse tree produced by the `expressionReturn`
+	 * labeled alternative in `Ex1Parser.expression`.
+	 * @param ctx the parse tree
+	 */
+	exitExpressionReturn?: (ctx: ExpressionReturnContext) => void;
+
+	/**
 	 * Enter a parse tree produced by the `expressionValue`
 	 * labeled alternative in `Ex1Parser.expression`.
 	 * @param ctx the parse tree
@@ -347,6 +392,19 @@ export interface Ex1Listener extends ParseTreeListener {
 	exitTypeList?: (ctx: TypeListContext) => void;
 
 	/**
+	 * Enter a parse tree produced by the `typeFunction`
+	 * labeled alternative in `Ex1Parser.type`.
+	 * @param ctx the parse tree
+	 */
+	enterTypeFunction?: (ctx: TypeFunctionContext) => void;
+	/**
+	 * Exit a parse tree produced by the `typeFunction`
+	 * labeled alternative in `Ex1Parser.type`.
+	 * @param ctx the parse tree
+	 */
+	exitTypeFunction?: (ctx: TypeFunctionContext) => void;
+
+	/**
 	 * Enter a parse tree produced by the `variableDeclaration`
 	 * labeled alternative in `Ex1Parser.declaration`.
 	 * @param ctx the parse tree
@@ -358,6 +416,32 @@ export interface Ex1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitVariableDeclaration?: (ctx: VariableDeclarationContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `fonctDeclaration`
+	 * labeled alternative in `Ex1Parser.declaration`.
+	 * @param ctx the parse tree
+	 */
+	enterFonctDeclaration?: (ctx: FonctDeclarationContext) => void;
+	/**
+	 * Exit a parse tree produced by the `fonctDeclaration`
+	 * labeled alternative in `Ex1Parser.declaration`.
+	 * @param ctx the parse tree
+	 */
+	exitFonctDeclaration?: (ctx: FonctDeclarationContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `multiDeclartion`
+	 * labeled alternative in `Ex1Parser.declaration`.
+	 * @param ctx the parse tree
+	 */
+	enterMultiDeclartion?: (ctx: MultiDeclartionContext) => void;
+	/**
+	 * Exit a parse tree produced by the `multiDeclartion`
+	 * labeled alternative in `Ex1Parser.declaration`.
+	 * @param ctx the parse tree
+	 */
+	exitMultiDeclartion?: (ctx: MultiDeclartionContext) => void;
 
 	/**
 	 * Enter a parse tree produced by the `valueInt`

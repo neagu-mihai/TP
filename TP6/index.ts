@@ -1,6 +1,6 @@
 import { CharStreams, CodePointCharStream, CommonTokenStream, Token } from 'antlr4ts';
 import { Ex1Lexer } from './Ex1Lexer.js';
-import { Ex1Parser, ExpressionAdditionContext, ExpressionDivisionContext, ExpressionMultiplyContext, ExpressionParanthesisContext, ExpressionRemContext, ExpressionSubtractionContext, MultilineProgContext, SinglelineProgContext, TypeFloatContext, TypeIntContext, TypeStringContext, ValueFloatContext, ValueIntContext, ValueStringContext, VariableDeclarationContext, ExpressionValueContext, ValueVariableContext, VariableAttributionContext, ExpressionAndContext, ExpressionOrContext, ExpressionNotContext, TypeBoolContext, ValueFlaseContext, ValueTrueContext, ExpressionArrayContext, ExpressionArrElemContext, TypeListContext } from './Ex1Parser.js';
+import { Ex1Parser, ExpressionAdditionContext, ExpressionDivisionContext, ExpressionMultiplyContext, ExpressionParanthesisContext, ExpressionRemContext, ExpressionSubtractionContext, MultilineProgContext, SinglelineProgContext, TypeFloatContext, TypeIntContext, TypeStringContext, ValueFloatContext, ValueIntContext, ValueStringContext, VariableDeclarationContext, ExpressionValueContext, ValueVariableContext, VariableAttributionContext, ExpressionAndContext, ExpressionOrContext, ExpressionNotContext, TypeBoolContext, ValueFlaseContext, ValueTrueContext, ExpressionArrayContext, ExpressionArrElemContext, TypeListContext, TypeFunctionContext, ExpressionFunctElemContext, ExpressionMultiContext, ExpressionReturnContext, FonctDeclarationContext, MultiDeclartionContext } from './Ex1Parser.js';
 import { Ex1Visitor } from './Ex1Visitor.js';
 import * as fs from 'fs';
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
@@ -92,7 +92,7 @@ class AttributionNode extends ASTNode {
             to: this.variable,
             from: this.value,
             line: this.line
-        }
+        } 
     }
 }
  
@@ -148,6 +148,28 @@ class MyEx1Visitor extends AbstractParseTreeVisitor<ASTNode> implements Ex1Visit
             ctx.VARIABLE().symbol.line
         );
     }
+    /*visitFonctDeclaration(ctx: FonctDeclarationContext):DeclarationNode{
+        return new DeclarationNode(
+            (this.visit(ctx.type()) as TypeNode).type_name,
+            ctx.VARIABLE().text,
+            ctx.LP().text,
+            this.visit(ctx.declaration()) as DeclarationNode,
+            ctx.RP().text,
+            ctx.LF().text,
+            this.visit(ctx.expression()) as Expression,
+            ctx.RF().text,
+            ctx.VARIABLE().symbol.line
+        );
+    }*/
+     /*visitMultiDeclartion(ctx: MultiDeclartionContext) :DeclarationNode{
+        return new DeclarationNode(
+            (this.visit(ctx.declaration()) as DeclarationNode,
+            ctx.COMMA().text,
+            this.visit(ctx.declaration()) as DeclarationNode,
+            ctx.VARIABLE().symbol.line
+        );
+     }*/
+    
     visitValueInt(ctx: ValueIntContext): ValueNode {
         return new ValueNode(
             parseInt(ctx.INT_NUMBER().text),
@@ -214,6 +236,12 @@ class MyEx1Visitor extends AbstractParseTreeVisitor<ASTNode> implements Ex1Visit
         return new TypeNode(
             ctx.LIST().text,
             ctx.LIST().symbol.line 
+            )  
+    }
+    visitTypeFunction(ctx:TypeFunctionContext):TypeNode{
+        return new TypeNode(
+            ctx.FUNCTION().text,
+            ctx.FUNCTION().symbol.line 
             )  
     }
     /** TODO 1: Visit the boolean type */
@@ -305,6 +333,27 @@ class MyEx1Visitor extends AbstractParseTreeVisitor<ASTNode> implements Ex1Visit
 		if(op.text) {
 			return new Expression(op.text, left as Expression, right as Expression, ctx._op.line);
 		} else throw new Error();
+    }
+    visitExpressionFunctElem(ctx: ExpressionFunctElemContext):Expression{
+        const left = this.visit(ctx.expression(0));
+		const right = this.visit(ctx.expression(1));
+		const op = ctx._op;
+ 
+		if(op.text) {
+			return new Expression(op.text, left as Expression, right as Expression, ctx._op.line);
+		} else throw new Error();
+    }
+    visitExpressionMulti(ctx: ExpressionMultiContext):Expression{
+        const left = this.visit(ctx.expression(0));
+		const right = this.visit(ctx.expression(1));
+		const op = ctx._op;
+ 
+		if(op.text) {
+			return new Expression(op.text, left as Expression, right as Expression, ctx._op.line);
+		} else throw new Error();
+    }
+    visitExpressionReturn(ctx: ExpressionReturnContext){
+        return this.visit(ctx.expression());
     }
     
  
