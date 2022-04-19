@@ -1,0 +1,27 @@
+{
+    "id": "statements",
+    "statements": [
+        {
+            "id": "declaration",
+            "variable_type": "string",
+            "variable": "_var2",
+            "value": {
+                "id": "expression",
+                "left": {
+                    "id": "value",
+                    "value": "\"FILS \"",
+                    "line": 1
+                },
+                "right": {
+                    "id": "value",
+                    "value": "\"ALF\"",
+                    "line": 1
+                },
+                "op": "+",
+                "line": 1
+            },
+            "line": 1
+        }
+    ],
+    "line": 1
+}

@@ -1,0 +1,29 @@
+{
+    "id": "statements",
+    "statements": [
+        {
+            "id": "declaration",
+            "variable_type": "int",
+            "variable": "_var1",
+            "value": {
+                "id": "function_call",
+                "function": "_sum",
+                "parameters": [
+                    {
+                        "id": "value",
+                        "value": 1,
+                        "line": 1
+                    },
+                    {
+                        "id": "value",
+                        "value": 2,
+                        "line": 1
+                    }
+                ],
+                "line": 1
+            },
+            "line": 1
+        }
+    ],
+    "line": 1
+}

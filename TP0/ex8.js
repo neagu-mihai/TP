@@ -1,82 +1,59 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const fs = __importStar(require("fs"));
-const numbers = fs.readFileSync('./utils_ex8.txt').toString();
-const numbersArray = numbers.split(' ').map(elem => parseInt(elem));
-const sum = numbersArray.reduce((a, b) => a + b, 0);
-const avg = sum / numbersArray.length;
-console.log(`Sum: ${sum}; Avg: ${avg} \n`);
-for (let i = 1; i <= 10; i++)
-    console.log(`${i} x 5 = ${i * 5}`);
-const testNumber = 6;
-let divSum = 0;
-for (let i = 1; i < testNumber; i++)
+exports.__esModule = true;
+var fs = require("fs");
+var numbers = fs.readFileSync('./utils_ex8.txt').toString();
+var numbersArray = numbers.split(' ').map(function (elem) { return parseInt(elem); });
+var sum = numbersArray.reduce(function (a, b) { return a + b; }, 0);
+var avg = sum / numbersArray.length;
+console.log("Sum: ".concat(sum, "; Avg: ").concat(avg, " \n"));
+for (var i = 1; i <= 10; i++)
+    console.log("".concat(i, " x 5 = ").concat(i * 5));
+var testNumber = 6;
+var divSum = 0;
+for (var i = 1; i < testNumber; i++)
     if (testNumber % i === 0)
         divSum += i;
 if (divSum === testNumber)
     console.log('Perfect number');
 else
     console.log('Not so perfect number');
-const strongNumber = 145;
-const digits = strongNumber.toString().split('').map(elem => parseInt(elem));
-let factorialRecords = [];
-const factorial = (testNumber) => {
+var strongNumber = 145;
+var digits = strongNumber.toString().split('').map(function (elem) { return parseInt(elem); });
+var factorialRecords = [];
+var factorial = function (testNumber) {
     if (testNumber == 0 || testNumber == 1)
         return 1;
     if (factorialRecords[testNumber] > 0)
         return factorialRecords[testNumber];
     return factorialRecords[testNumber] = factorial(testNumber - 1) * testNumber;
 };
-const factorialDigits = digits.map(elem => factorial(elem));
-const factorialsSum = factorialDigits.reduce((a, b) => a + b, 0);
+var factorialDigits = digits.map(function (elem) { return factorial(elem); });
+var factorialsSum = factorialDigits.reduce(function (a, b) { return a + b; }, 0);
 if (factorialsSum === strongNumber)
-    console.log(`${strongNumber} is a strong number`);
+    console.log("".concat(strongNumber, " is a strong number"));
 else
-    console.log(`${strongNumber} is not a strong number`);
-for (let lineIndex = 0; lineIndex < 4; lineIndex++) {
-    let spaces = '';
-    let stars = '';
-    for (let spaceIndex = 0; spaceIndex < 4 - lineIndex; spaceIndex++)
+    console.log("".concat(strongNumber, " is not a strong number"));
+for (var lineIndex = 0; lineIndex < 4; lineIndex++) {
+    var spaces = '';
+    var stars = '';
+    for (var spaceIndex = 0; spaceIndex < 4 - lineIndex; spaceIndex++)
         spaces += ' ';
     process.stdout.write(spaces);
-    for (let starIndex = 0; starIndex < lineIndex + 1; starIndex++)
+    for (var starIndex = 0; starIndex < lineIndex + 1; starIndex++)
         stars += '* ';
     process.stdout.write(stars);
     console.log('\n');
 }
-for (let lineIndex = 0; lineIndex < 7; lineIndex++) {
-    let spaces = '';
-    let numbers = '';
-    for (let spaceIndex = 0; spaceIndex < lineIndex; spaceIndex++)
+for (var lineIndex = 0; lineIndex < 7; lineIndex++) {
+    var spaces = '';
+    var numbers_1 = '';
+    for (var spaceIndex = 0; spaceIndex < lineIndex; spaceIndex++)
         spaces += ' ';
     process.stdout.write(spaces);
-    for (let numbersIndex = 0; numbersIndex < 7 - lineIndex; numbersIndex++)
-        numbers += numbersIndex + 1;
-    for (let numbersIndex = 7 - lineIndex - 1; numbersIndex > 0; numbersIndex--)
-        numbers += numbersIndex;
-    process.stdout.write(numbers);
+    for (var numbersIndex = 0; numbersIndex < 7 - lineIndex; numbersIndex++)
+        numbers_1 += numbersIndex + 1;
+    for (var numbersIndex = 7 - lineIndex - 1; numbersIndex > 0; numbersIndex--)
+        numbers_1 += numbersIndex;
+    process.stdout.write(numbers_1);
     console.log('\n');
 }

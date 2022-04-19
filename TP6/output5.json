@@ -1,0 +1,109 @@
+{
+    "id": "statements",
+    "statements": [
+        {
+            "id": "function",
+            "function_name": "function",
+            "parameters": [
+                {
+                    "id": "function_parameter",
+                    "value": {
+                        "id": "value",
+                        "value": 0,
+                        "line": 1
+                    },
+                    "line": 1
+                },
+                {
+                    "id": "function_parameter",
+                    "value": {
+                        "id": "value",
+                        "value": "\"alf\"",
+                        "line": 1
+                    },
+                    "line": 1
+                },
+                {
+                    "id": "function_parameter",
+                    "value": {
+                        "id": "value",
+                        "value": true,
+                        "line": 1
+                    },
+                    "line": 1
+                }
+            ],
+            "instructions": {
+                "id": "statements",
+                "statements": [
+                    {
+                        "id": "attribution",
+                        "to": "_var1",
+                        "from": {
+                            "id": "expression",
+                            "left": {
+                                "id": "value",
+                                "value": "_var2",
+                                "line": 3
+                            },
+                            "right": {
+                                "id": "value",
+                                "value": "\"2021\"",
+                                "line": 3
+                            },
+                            "op": "+",
+                            "line": 3
+                        },
+                        "line": 3
+                    },
+                    {
+                        "id": "attribution",
+                        "to": "_var4",
+                        "from": {
+                            "id": "value",
+                            "value": false,
+                            "line": 4
+                        },
+                        "line": 4
+                    }
+                ],
+                "line": 1
+            },
+            "return": {
+                "id": "return_node",
+                "return_statement": {
+                    "id": "return_node",
+                    "return_statement": {
+                        "id": "expression",
+                        "left": {
+                            "id": "value",
+                            "value": 3,
+                            "line": 6
+                        },
+                        "right": {
+                            "id": "expression",
+                            "left": {
+                                "id": "value",
+                                "value": 5,
+                                "line": 6
+                            },
+                            "right": {
+                                "id": "value",
+                                "value": 7,
+                                "line": 6
+                            },
+                            "op": "/",
+                            "line": 6
+                        },
+                        "op": "+",
+                        "line": 6
+                    },
+                    "line": 6
+                },
+                "line": 6
+            },
+            "line": 1
+        }
+    ],
+    "line": 1
+}

@@ -1,0 +1,42 @@
+{
+    "id": "statements",
+    "statements": [
+        {
+            "return": "list_declaration",
+            "list_type": "list",
+            "list_name": "_var1",
+            "values": {
+                "values": [
+                    {
+                        "id": "value",
+                        "value": 10,
+                        "line": 1
+                    },
+                    {
+                        "id": "value",
+                        "value": 5.5,
+                        "line": 1
+                    },
+                    {
+                        "id": "value",
+                        "value": "'alf'",
+                        "line": 1
+                    },
+                    {
+                        "id": "value",
+                        "value": true,
+                        "line": 1
+                    },
+                    {
+                        "id": "value",
+                        "value": "_var2",
+                        "line": 1
+                    }
+                ],
+                "line": 1
+            },
+            "line": 1
+        }
+    ],
+    "line": 1
+}

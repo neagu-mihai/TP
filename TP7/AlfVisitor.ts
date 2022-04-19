@@ -1,74 +1,65 @@
-// Generated from ./Ex1.g4 by ANTLR 4.9.0-SNAPSHOT
+// Generated from ./Alf.g4 by ANTLR 4.9.0-SNAPSHOT
 
 
 import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
 
-import { ExpressionMultiplyContext } from "./Ex1Parser";
-import { ExpressionDivisionContext } from "./Ex1Parser";
-import { ExpressionRemContext } from "./Ex1Parser";
-import { ExpressionAdditionContext } from "./Ex1Parser";
-import { ExpressionSubtractionContext } from "./Ex1Parser";
-import { ExpressionParanthesisContext } from "./Ex1Parser";
-import { ExpressionBooleanContext } from "./Ex1Parser";
-import { ExpressionValueContext } from "./Ex1Parser";
-import { FunctionCallContext } from "./Ex1Parser";
-import { ListValuesContext } from "./Ex1Parser";
-import { ReturnStatementContext } from "./Ex1Parser";
-import { EmptyReturnContext } from "./Ex1Parser";
-import { MultilineProgContext } from "./Ex1Parser";
-import { SinglelineProgContext } from "./Ex1Parser";
-import { TypeIntContext } from "./Ex1Parser";
-import { TypeFloatContext } from "./Ex1Parser";
-import { TypeStringContext } from "./Ex1Parser";
-import { TypeBooleanContext } from "./Ex1Parser";
-import { VariableDeclarationContext } from "./Ex1Parser";
-import { VariableFunctionCallContext } from "./Ex1Parser";
-import { ListDeclarationContext } from "./Ex1Parser";
-import { ExpressionOrContext } from "./Ex1Parser";
-import { ExpressionAndContext } from "./Ex1Parser";
-import { ExpressionNotContext } from "./Ex1Parser";
-import { ExpressionBoolParanthesisContext } from "./Ex1Parser";
-import { ExpressionBoolValueContext } from "./Ex1Parser";
-import { FunctionParameterContext } from "./Ex1Parser";
-import { DeclarationRuleContext } from "./Ex1Parser";
-import { ExpressionRuleContext } from "./Ex1Parser";
-import { ListRuleContext } from "./Ex1Parser";
-import { FunctionRuleContext } from "./Ex1Parser";
-import { AttributionRuleContext } from "./Ex1Parser";
-import { VariableAttributionContext } from "./Ex1Parser";
-import { ValueIntContext } from "./Ex1Parser";
-import { ValueFloatContext } from "./Ex1Parser";
-import { ValueStringContext } from "./Ex1Parser";
-import { ValueBooleanContext } from "./Ex1Parser";
-import { ValueVariableContext } from "./Ex1Parser";
-import { FunctionContentContext } from "./Ex1Parser";
-import { StartContext } from "./Ex1Parser";
-import { StatementContext } from "./Ex1Parser";
-import { DeclarationContext } from "./Ex1Parser";
-import { TypeContext } from "./Ex1Parser";
-import { ValueContext } from "./Ex1Parser";
-import { ExpressionContext } from "./Ex1Parser";
-import { Expression_booleanContext } from "./Ex1Parser";
-import { AttributionContext } from "./Ex1Parser";
-import { List_declarationContext } from "./Ex1Parser";
-import { ValuesContext } from "./Ex1Parser";
-import { Function_declarationContext } from "./Ex1Parser";
-import { ParameterContext } from "./Ex1Parser";
-import { Return_functionContext } from "./Ex1Parser";
-import { Function_callContext } from "./Ex1Parser";
+import { ExpressionMultiplyContext } from "./AlfParser";
+import { ExpressionDivisionContext } from "./AlfParser";
+import { ExpressionRemContext } from "./AlfParser";
+import { ExpressionAdditionContext } from "./AlfParser";
+import { ExpressionSubtractionContext } from "./AlfParser";
+import { ExpressionParanthesisContext } from "./AlfParser";
+import { ExpressionValueContext } from "./AlfParser";
+import { FunctionCallContext } from "./AlfParser";
+import { ListValuesContext } from "./AlfParser";
+import { ReturnStatementContext } from "./AlfParser";
+import { EmptyReturnContext } from "./AlfParser";
+import { MultilineProgContext } from "./AlfParser";
+import { SinglelineProgContext } from "./AlfParser";
+import { TypeIntContext } from "./AlfParser";
+import { TypeFloatContext } from "./AlfParser";
+import { TypeStringContext } from "./AlfParser";
+import { VariableDeclarationContext } from "./AlfParser";
+import { VariableFunctionCallContext } from "./AlfParser";
+import { ListDeclarationContext } from "./AlfParser";
+import { FunctionParameterContext } from "./AlfParser";
+import { DeclarationRuleContext } from "./AlfParser";
+import { ExpressionRuleContext } from "./AlfParser";
+import { ListRuleContext } from "./AlfParser";
+import { FunctionRuleContext } from "./AlfParser";
+import { AttributionRuleContext } from "./AlfParser";
+import { VariableAttributionContext } from "./AlfParser";
+import { ValueIntContext } from "./AlfParser";
+import { ValueFloatContext } from "./AlfParser";
+import { ValueStringContext } from "./AlfParser";
+import { ValueVariableContext } from "./AlfParser";
+import { FunctionContentContext } from "./AlfParser";
+import { StartContext } from "./AlfParser";
+import { StatementContext } from "./AlfParser";
+import { DeclarationContext } from "./AlfParser";
+import { TypeContext } from "./AlfParser";
+import { ValueContext } from "./AlfParser";
+import { ExpressionContext } from "./AlfParser";
+import { AttributionContext } from "./AlfParser";
+import { List_declarationContext } from "./AlfParser";
+import { ValuesContext } from "./AlfParser";
+import { Function_declarationContext } from "./AlfParser";
+import { ParameterContext } from "./AlfParser";
+import { Return_functionContext } from "./AlfParser";
+import { Function_callContext } from "./AlfParser";
 
 
 /**
  * This interface defines a complete generic visitor for a parse tree produced
- * by `Ex1Parser`.
+ * by `AlfParser`.
  *
  * @param <Result> The return type of the visit operation. Use `void` for
  * operations with no return type.
  */
-export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
+export interface AlfVisitor<Result> extends ParseTreeVisitor<Result> {
 	/**
 	 * Visit a parse tree produced by the `expressionMultiply`
-	 * labeled alternative in `Ex1Parser.expression`.
+	 * labeled alternative in `AlfParser.expression`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -76,7 +67,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `expressionDivision`
-	 * labeled alternative in `Ex1Parser.expression`.
+	 * labeled alternative in `AlfParser.expression`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -84,7 +75,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `expressionRem`
-	 * labeled alternative in `Ex1Parser.expression`.
+	 * labeled alternative in `AlfParser.expression`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -92,7 +83,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `expressionAddition`
-	 * labeled alternative in `Ex1Parser.expression`.
+	 * labeled alternative in `AlfParser.expression`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -100,7 +91,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `expressionSubtraction`
-	 * labeled alternative in `Ex1Parser.expression`.
+	 * labeled alternative in `AlfParser.expression`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -108,23 +99,15 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `expressionParanthesis`
-	 * labeled alternative in `Ex1Parser.expression`.
+	 * labeled alternative in `AlfParser.expression`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitExpressionParanthesis?: (ctx: ExpressionParanthesisContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by the `expressionBoolean`
-	 * labeled alternative in `Ex1Parser.expression`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitExpressionBoolean?: (ctx: ExpressionBooleanContext) => Result;
-
-	/**
 	 * Visit a parse tree produced by the `expressionValue`
-	 * labeled alternative in `Ex1Parser.expression`.
+	 * labeled alternative in `AlfParser.expression`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -132,7 +115,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `functionCall`
-	 * labeled alternative in `Ex1Parser.function_call`.
+	 * labeled alternative in `AlfParser.function_call`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -140,7 +123,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `listValues`
-	 * labeled alternative in `Ex1Parser.values`.
+	 * labeled alternative in `AlfParser.values`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -148,7 +131,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `returnStatement`
-	 * labeled alternative in `Ex1Parser.return_function`.
+	 * labeled alternative in `AlfParser.return_function`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -156,7 +139,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `emptyReturn`
-	 * labeled alternative in `Ex1Parser.return_function`.
+	 * labeled alternative in `AlfParser.return_function`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -164,7 +147,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `multilineProg`
-	 * labeled alternative in `Ex1Parser.start`.
+	 * labeled alternative in `AlfParser.start`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -172,7 +155,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `singlelineProg`
-	 * labeled alternative in `Ex1Parser.start`.
+	 * labeled alternative in `AlfParser.start`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -180,7 +163,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `typeInt`
-	 * labeled alternative in `Ex1Parser.type`.
+	 * labeled alternative in `AlfParser.type`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -188,7 +171,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `typeFloat`
-	 * labeled alternative in `Ex1Parser.type`.
+	 * labeled alternative in `AlfParser.type`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -196,23 +179,15 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `typeString`
-	 * labeled alternative in `Ex1Parser.type`.
+	 * labeled alternative in `AlfParser.type`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitTypeString?: (ctx: TypeStringContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by the `typeBoolean`
-	 * labeled alternative in `Ex1Parser.type`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitTypeBoolean?: (ctx: TypeBooleanContext) => Result;
-
-	/**
 	 * Visit a parse tree produced by the `variableDeclaration`
-	 * labeled alternative in `Ex1Parser.declaration`.
+	 * labeled alternative in `AlfParser.declaration`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -220,7 +195,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `variableFunctionCall`
-	 * labeled alternative in `Ex1Parser.declaration`.
+	 * labeled alternative in `AlfParser.declaration`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -228,55 +203,15 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `listDeclaration`
-	 * labeled alternative in `Ex1Parser.list_declaration`.
+	 * labeled alternative in `AlfParser.list_declaration`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitListDeclaration?: (ctx: ListDeclarationContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by the `expressionOr`
-	 * labeled alternative in `Ex1Parser.expression_boolean`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitExpressionOr?: (ctx: ExpressionOrContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `expressionAnd`
-	 * labeled alternative in `Ex1Parser.expression_boolean`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitExpressionAnd?: (ctx: ExpressionAndContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `expressionNot`
-	 * labeled alternative in `Ex1Parser.expression_boolean`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitExpressionNot?: (ctx: ExpressionNotContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `expressionBoolParanthesis`
-	 * labeled alternative in `Ex1Parser.expression_boolean`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitExpressionBoolParanthesis?: (ctx: ExpressionBoolParanthesisContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `expressionBoolValue`
-	 * labeled alternative in `Ex1Parser.expression_boolean`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitExpressionBoolValue?: (ctx: ExpressionBoolValueContext) => Result;
-
-	/**
 	 * Visit a parse tree produced by the `functionParameter`
-	 * labeled alternative in `Ex1Parser.parameter`.
+	 * labeled alternative in `AlfParser.parameter`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -284,7 +219,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `declarationRule`
-	 * labeled alternative in `Ex1Parser.statement`.
+	 * labeled alternative in `AlfParser.statement`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -292,7 +227,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `expressionRule`
-	 * labeled alternative in `Ex1Parser.statement`.
+	 * labeled alternative in `AlfParser.statement`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -300,7 +235,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `listRule`
-	 * labeled alternative in `Ex1Parser.statement`.
+	 * labeled alternative in `AlfParser.statement`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -308,7 +243,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `functionRule`
-	 * labeled alternative in `Ex1Parser.statement`.
+	 * labeled alternative in `AlfParser.statement`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -316,7 +251,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `attributionRule`
-	 * labeled alternative in `Ex1Parser.statement`.
+	 * labeled alternative in `AlfParser.statement`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -324,7 +259,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `variableAttribution`
-	 * labeled alternative in `Ex1Parser.attribution`.
+	 * labeled alternative in `AlfParser.attribution`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -332,7 +267,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `valueInt`
-	 * labeled alternative in `Ex1Parser.value`.
+	 * labeled alternative in `AlfParser.value`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -340,7 +275,7 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `valueFloat`
-	 * labeled alternative in `Ex1Parser.value`.
+	 * labeled alternative in `AlfParser.value`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -348,23 +283,15 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `valueString`
-	 * labeled alternative in `Ex1Parser.value`.
+	 * labeled alternative in `AlfParser.value`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitValueString?: (ctx: ValueStringContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by the `valueBoolean`
-	 * labeled alternative in `Ex1Parser.value`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitValueBoolean?: (ctx: ValueBooleanContext) => Result;
-
-	/**
 	 * Visit a parse tree produced by the `valueVariable`
-	 * labeled alternative in `Ex1Parser.value`.
+	 * labeled alternative in `AlfParser.value`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -372,70 +299,63 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `functionContent`
-	 * labeled alternative in `Ex1Parser.function_declaration`.
+	 * labeled alternative in `AlfParser.function_declaration`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitFunctionContent?: (ctx: FunctionContentContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `Ex1Parser.start`.
+	 * Visit a parse tree produced by `AlfParser.start`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitStart?: (ctx: StartContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `Ex1Parser.statement`.
+	 * Visit a parse tree produced by `AlfParser.statement`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitStatement?: (ctx: StatementContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `Ex1Parser.declaration`.
+	 * Visit a parse tree produced by `AlfParser.declaration`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitDeclaration?: (ctx: DeclarationContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `Ex1Parser.type`.
+	 * Visit a parse tree produced by `AlfParser.type`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitType?: (ctx: TypeContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `Ex1Parser.value`.
+	 * Visit a parse tree produced by `AlfParser.value`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitValue?: (ctx: ValueContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `Ex1Parser.expression`.
+	 * Visit a parse tree produced by `AlfParser.expression`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitExpression?: (ctx: ExpressionContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `Ex1Parser.expression_boolean`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitExpression_boolean?: (ctx: Expression_booleanContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by `Ex1Parser.attribution`.
+	 * Visit a parse tree produced by `AlfParser.attribution`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitAttribution?: (ctx: AttributionContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `Ex1Parser.list_declaration`.
+	 * Visit a parse tree produced by `AlfParser.list_declaration`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -443,35 +363,35 @@ export interface Ex1Visitor<Result> extends ParseTreeVisitor<Result> {
 
 	/**
 	 * Visit a parse tree produced by the `values`
-	 * labeled alternative in `Ex1Parser.startstartstatementstatementstatementstatementstatementdeclarationdeclarationtypetypetypetypevaluevaluevaluevaluevalueexpressionexpressionexpressionexpressionexpressionexpressionexpressionexpressionexpression_booleanexpression_booleanexpression_booleanexpression_booleanexpression_booleanattributionlist_declarationvaluesfunction_declarationparameterreturn_functionreturn_functionfunction_call`.
+	 * labeled alternative in `AlfParser.startstartstatementstatementstatementstatementstatementdeclarationdeclarationtypetypetypevaluevaluevaluevalueexpressionexpressionexpressionexpressionexpressionexpressionexpressionattributionlist_declarationvaluesfunction_declarationparameterreturn_functionreturn_functionfunction_call`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitValues?: (ctx: ValuesContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `Ex1Parser.function_declaration`.
+	 * Visit a parse tree produced by `AlfParser.function_declaration`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitFunction_declaration?: (ctx: Function_declarationContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `Ex1Parser.parameter`.
+	 * Visit a parse tree produced by `AlfParser.parameter`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitParameter?: (ctx: ParameterContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `Ex1Parser.return_function`.
+	 * Visit a parse tree produced by `AlfParser.return_function`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitReturn_function?: (ctx: Return_functionContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `Ex1Parser.function_call`.
+	 * Visit a parse tree produced by `AlfParser.function_call`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */

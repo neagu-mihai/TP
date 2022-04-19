@@ -1,86 +1,78 @@
 grammar Ex1;
- 
-start               : (statement SEMICOLON NEWLINE*)*               #multilineProg
-                    | statement SEMICOLON NEWLINE*                  #singlelineProg 
+
+start               : (statement SEMICOLON NEWLINE*)*   #multilineProg
+                    | statement SEMICOLON NEWLINE*              #singlelineProg 
                     ;
- 
-statement           : declaration                                   #declarationRule
-                    | expression                                    #expressionRule
-                    | attribution                                   #attributionRule
+//  EX 4, 5
+statement           : declaration                       #declarationRule
+                    | expression                        #expressionRule
+                    | list_declaration                  #listRule
+                    | function_declaration              #functionRule
+                    | attribution                       #attributionRule
                     ;
- 
-declaration         : type VARIABLE EQ expression                   #variableDeclaration
-                    | type VARIABLE LP declaration RP LF expression RF #fonctDeclaration
-                    | declaration COMMA declaration                 #multiDeclartion 
+
+declaration         : type VARIABLE EQ expression       #variableDeclaration
+                    | type VARIABLE EQ function_call    #variableFunctionCall
                     ;
- 
-type                : INT                                           #typeInt
-                    | FLOAT                                         #typeFloat
-                    | STRING                                        #typeString
-                    | BOOLEAN                                       #typeBool
-                    | LIST                                          #typeList
-                    | FUNCTION                                      #typeFunction
+
+type                : INT                               #typeInt
+                    | FLOAT                             #typeFloat
+                    | STRING                            #typeString
+                    | BOOLEAN                           #typeBoolean
                     ;
- 
-value               : INT_NUMBER                                    #valueInt
-                    | FLOAT_NUMBER                                  #valueFloat
-                    | STRING_TEXT                                   #valueString
-                    | VARIABLE                                      #valueVariable
-                    | TRUE                                          #valueTrue
-                    | FALSE                                         #valueFlase
+// EX 1
+value               : INT_NUMBER                        #valueInt
+                    | FLOAT_NUMBER                      #valueFloat
+                    | STRING_TEXT                       #valueString
+                    | BOOL_VALUE                        #valueBoolean
+                    | VARIABLE                          #valueVariable
                     ;
- 
-expression          : left=expression op=MUL right=expression       #expressionMultiply
-                    | left=expression op=DIV right=expression       #expressionDivision                   
-                    | left=expression op=REM right=expression       #expressionRem 
-                    | left=expression op=ADD right=expression       #expressionAddition
-                    | left=expression op=SUB right=expression       #expressionSubtraction
-                    | LP expression RP                              #expressionParanthesis
-                    | left=expression op=AND right=expression       #expressionAnd
-                    | left=expression op=OR right=expression        #expressionOr
-                    | NOT expression                                #expressionNot
-                    | LA expression RA                              #expressionArray
-                    | left=expression op=COMMA right=expression     #expressionArrElem
-                    | left=expression op=EQ right=expression        #expressionFunctElem
-                    | left=expression op=SEMICOLON right=expression #expressionMulti
-                    | RETURN expression                             #expressionReturn
-                    | value                                         #expressionValue
+
+expression          : left=expression op=MUL right=expression     #expressionMultiply
+                    | left=expression op=DIV right=expression     #expressionDivision                   
+                    | left=expression op=REM right=expression     #expressionRem 
+                    | left=expression op=ADD right=expression     #expressionAddition
+                    | left=expression op=SUB right=expression     #expressionSubtraction
+                    | LP expression RP                            #expressionParanthesis
+                    | expression_boolean                          #expressionBoolean
+                    | value                                       #expressionValue
                     ;
- 
-/** TODO 1: Add the tokens (in the Lexer part) and the rules (with aliases) for boolean expressions
-  * Operators: OR, AND, NOT
-  * Values: true, false, variables 
- */
- 
- 
+// EX 1
+expression_boolean  : left=expression_boolean op=OR right=expression_boolean    #expressionOr
+                    | left=expression_boolean op=AND right=expression_boolean   #expressionAnd
+                    | op=NOT right=expression_boolean                           #expressionNot
+                    | LP expression_boolean RP                                  #expressionBoolParanthesis
+                    | value                                                     #expressionBoolValue
+                    ;
+
 attribution         : VARIABLE EQ expression                        #variableAttribution
                     ;
- 
- 
-/** TODO 4: Add the tokens (in the Lexer part) and the rules (with aliases) for lists declaration
-  * Keyword: list
-  * Name: any variable name
-  * Values: any value separated by comma
- */
- 
- 
-/** TODO 5: Add the tokens (in the Lexer part) and the rules (with aliases) for functions declaration
-  * Keyword: function
-  * Name: any variable name
-  * Parameters: any declaration separated by comma
-  * Instructions: any statement separated by a semicolon and one or more new lines
-  * Return: "return" keyword + any statement ending with a semicolon 
- */
- 
-/** BONUS: Add the tokens (in the Lexer part) and the rules (with aliases) for function calls
-  * Function name: any variable name
-  * Parameters: any value separated by comma
-  * Add the function call to the variable declaration  
- */
- 
- 
+// EX 4
+list_declaration    : LIST VARIABLE EQ LSP values RSP               #listDeclaration
+                    ;
+
+values              : (value COMMA?)*                                #listValues
+                    ;
+//  EX 5
+function_declaration: FUNCTION VARIABLE LP (parameter COMMA?)* RP NEWLINE* LB NEWLINE* (statement SEMICOLON NEWLINE*)* return_function NEWLINE* RB    #functionContent
+                    ;
+
+
+parameter           : declaration                               #functionParameter
+                    ;
+
+return_function     : RETURN statement SEMICOLON                #returnStatement
+                    | RETURN SEMICOLON                          #emptyReturn
+                    ;
+
+function_call       : VARIABLE LP (value COMMA*)* RP   #functionCall
+                    ;
+
+
+// EX 1
 WS                  :   (' ')       -> skip;
 NEWLINE             :   ([\r\n]+)   -> skip;
+FUNCTION            :   'function';
 VARIABLE            :   ('_'[a-zA-Z0-9]+);
 ADD                 :   '+';
 SUB                 :   '-';
@@ -91,23 +83,21 @@ INT                 :   'int';
 FLOAT               :   'float';
 STRING              :   'string';
 BOOLEAN             :   'bool';
+LIST                :   'list';
 LP                  :   '(';
 RP                  :   ')';
 EQ                  :   '=';
 SEMICOLON           :   ';';
+AND                 :   '&&';
+OR                  :   '||';
+NOT                 :   '!';
+LSP                 :   '[';
+RSP                 :   ']';
+COMMA               :   ',';
+BOOL_VALUE          :   ('true'|'false');
+LB                  :   '{';
+RB                  :   '}';
+RETURN              :   'return';
 INT_NUMBER          :   ([0-9]+);
 FLOAT_NUMBER        :   ([0-9]+'.'[0-9]+);
 STRING_TEXT         :   ('"'~["]+'"'|'\''~[']+'\'');
-TRUE                :   'true';
-FALSE               :    'false';
-OR                  :    '||';
-AND                 :     '&&';
-NOT                 :     '!';
-LIST                :     'list';
-LA                  :     '[';
-RA                  :     ']';
-COMMA               :     ',';
-FUNCTION            : 'function';
-LF                  :     '{';
-RF                  :     '}';
-RETURN              : 'return';

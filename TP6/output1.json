@@ -1,0 +1,43 @@
+{
+    "id": "statements",
+    "statements": [
+        {
+            "id": "declaration",
+            "variable_type": "bool",
+            "variable": "_var1",
+            "value": {
+                "id": "expression",
+                "left": {
+                    "id": "expression",
+                    "left": {
+                        "id": "value",
+                        "value": "_var2",
+                        "line": 1
+                    },
+                    "right": {
+                        "id": "value",
+                        "value": "_var3",
+                        "line": 1
+                    },
+                    "op": "||",
+                    "line": 1
+                },
+                "right": {
+                    "id": "expression",
+                    "left": {},
+                    "right": {
+                        "id": "value",
+                        "value": "_var4",
+                        "line": 1
+                    },
+                    "op": "!",
+                    "line": 1
+                },
+                "op": "&&",
+                "line": 1
+            },
+            "line": 1
+        }
+    ],
+    "line": 1
+}

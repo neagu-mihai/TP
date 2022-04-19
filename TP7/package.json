@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "antlr4ts": "antlr4ts -visitor ./Ex1.g4"
+    "antlr4ts": "antlr4ts -visitor ./Alf.g4"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "@types/node": "^14.14.34"
   },
   "devDependencies": {
-    "antlr4ts": "^0.5.0-alpha.4"
+    "antlr4ts": "^0.5.0-alpha.4",
+    "antlr4ts-cli": "^0.5.0-alpha.4"
   }
 }
