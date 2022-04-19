@@ -6,6 +6,8 @@ import { AlfVisitor } from './AlfVisitor.js';
 import * as fs from 'fs';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { IntegerList } from 'antlr4ts/misc/IntegerList';
+import { stripVTControlCharacters } from 'util';
  
 let input: string = fs.readFileSync('./sample.txt').toString();
 let inputStream: CodePointCharStream = CharStreams.fromString(input);
@@ -89,17 +91,26 @@ class FunctionCallNode extends ASTNode {
  
 /* TODO 1: Declare Symbol Table type and initialize object */
  
-let symbol_table = {};
+interface VariableSymbolTable {
+    type: string,
+    value: any
+}
+ 
+let symbol_table: { [variable: string]: VariableSymbolTable } = {};
 function addVariableToSymbolTable(variable: string, type: string) {
-    /* symbol_table[variable] = {
+    
+    symbol_table[variable] = {
         type: type,
         value: undefined
-    }; */
+    }; 
 }
  
 /* TODO 2: Check if a variable was already defined in the Symbol Table */
 function isVariableDefined(variable: string) {
- 
+        if(symbol_table[variable]){
+            return true;
+        }
+        return false;
 }
  
 /** TODO 3: Check if the types of the value nodes of an expression's operands are matching
@@ -147,6 +158,12 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
     }
     visitVariableDeclaration(ctx: VariableDeclarationContext): DeclarationNode {
         /* TODO 1 & 2 */
+        // doar de la a doua in colo
+        if (isVariableDefined(ctx.VARIABLE().text)){
+        
+        throw "Eroare:"+ctx.VARIABLE().text+" definita deja";
+        }
+        else {addVariableToSymbolTable(ctx.VARIABLE().text,ctx.type().text);}
         return new DeclarationNode(
             (this.visit(ctx.type()) as TypeNode).type_name,
             ctx.VARIABLE().text,

@@ -1,4 +1,4 @@
-// Generated from /Users/diana_ghindaoanu/Documents/ALF_2022/TP/TP7/Alf.g4 by ANTLR 4.8
+// Generated from c:\Users\Chrys\Documents\GitHub\TP\TP7\Alf.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
