@@ -117,7 +117,12 @@ function isVariableDefined(variable: string) {
   *         The only operation allowed between strings is addition
 */
 function checkTypes(left: ValueNode, right: ValueNode, op: string) {
- 
+    if ((left.type.includes("string")||right.type.includes("string"))&&op.includes("-"||"/"||"*"||"%"))
+    {
+        return true;
+    }
+    return false;
+    
 }
  
 /** TODO 4: Get expression final type
@@ -128,7 +133,20 @@ function checkTypes(left: ValueNode, right: ValueNode, op: string) {
  */
  
 function getType(left: ValueNode, right: ValueNode, op: string) {
- 
+ let type="";
+    if(left.type==right.type)
+    {
+        type=left.type;
+    }
+    else {  if(left.type.includes("float")||right.type.includes("float")){
+            type="float";
+            }
+            if(left.type.includes("string")||right.type.includes("string"))
+            {
+                type="float";
+            }
+    }
+    return type;
 }
  
 /** TODO 5: Add the function parameters to the Symbol Table
@@ -223,13 +241,18 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
         const left = this.visit(ctx.expression(0));
         const right = this.visit(ctx.expression(1));
         const op = ctx._op;
- 
+        
         /** TODO 3: Check the type for each operand Value Node 
          *  If the types are not matching, throw ERROR: The types are not corresponding
         */
+       // merge dar nu arunca eroare
+        if( checkTypes(left as ValueNode,right as ValueNode,op.text!))
+        {
+            throw "ERROR: The types are not corresponding"
+        }
         if (op.text) {
             /* TODO 4: Add expression final type */
-            let type = '';
+            let type = getType(left as ValueNode,right as ValueNode,op.text);
             return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
         } else throw new Error();
     }
@@ -241,10 +264,13 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
         /** TODO 3: Check the type for each operand Value Node 
          *  If the types are not matching, throw ERROR: The types are not corresponding
         */
- 
+         if( checkTypes(left as ValueNode,right as ValueNode,op.text!))
+         {
+             throw "ERROR: The types are not corresponding"
+         }
          if (op.text) {
             /* TODO 4: Add expression final type */
-            let type = '';
+            let type = getType(left as ValueNode,right as ValueNode,op.text);
             return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
         } else throw new Error();
     }
@@ -256,10 +282,13 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
         /** TODO 3: Check the type for each operand Value Node 
          *  If the types are not matching, throw ERROR: The types are not corresponding
         */
- 
+         if( checkTypes(left as ValueNode,right as ValueNode,op.text!))
+        {
+            throw "ERROR: The types are not corresponding"
+        }
          if (op.text) {
             /* TODO 4: Add expression final type */
-            let type = '';
+            let type = getType(left as ValueNode,right as ValueNode,op.text);
             return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
         } else throw new Error();
     }
@@ -271,10 +300,13 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
         /** TODO 3: Check the type for each operand Value Node 
          *  If the types are not matching, throw ERROR: The types are not corresponding
         */
- 
+         if( checkTypes(left as ValueNode,right as ValueNode,op.text!))
+         {
+             throw "ERROR: The types are not corresponding"
+         }
          if (op.text) {
             /* TODO 4: Add expression final type */
-            let type = '';
+            let type = getType(left as ValueNode,right as ValueNode,op.text);
             return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
         } else throw new Error();
     }
@@ -282,14 +314,17 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
         const left = this.visit(ctx.expression(0));
         const right = this.visit(ctx.expression(1));
         const op = ctx._op;
- 
+        if( checkTypes(left as ValueNode,right as ValueNode,op.text!))
+        {
+            throw "ERROR: The types are not corresponding"
+        }
         /** TODO 3: Check the type for each operand Value Node 
          *  If the types are not matching, throw ERROR: The types are not corresponding
         */
  
          if (op.text) {
             /* TODO 4: Add expression final type */
-            let type = '';
+            let type = getType(left as ValueNode,right as ValueNode,op.text);
             return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
         } else throw new Error();
     }
