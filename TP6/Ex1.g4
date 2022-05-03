@@ -101,3 +101,4 @@ RETURN              :   'return';
 INT_NUMBER          :   ([0-9]+);
 FLOAT_NUMBER        :   ([0-9]+'.'[0-9]+);
 STRING_TEXT         :   ('"'~["]+'"'|'\''~[']+'\'');
+

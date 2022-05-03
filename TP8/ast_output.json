@@ -1,0 +1,39 @@
+{
+    "ast": {
+        "statements": [
+            {
+                "op": "/",
+                "left": {
+                    "value": 4,
+                    "line": 1,
+                    "type": "int",
+                    "id": "ValueNode"
+                },
+                "right": {
+                    "op": "*",
+                    "left": {
+                        "value": 7,
+                        "line": 1,
+                        "type": "int",
+                        "id": "ValueNode"
+                    },
+                    "right": {
+                        "value": 3,
+                        "line": 1,
+                        "type": "int",
+                        "id": "ValueNode"
+                    },
+                    "line": 1,
+                    "type": "int",
+                    "id": "Expression"
+                },
+                "line": 1,
+                "type": "int",
+                "id": "Expression"
+            }
+        ],
+        "line": 1,
+        "id": "StatementsNode"
+    },
+    "symbol_table": {}
+}
