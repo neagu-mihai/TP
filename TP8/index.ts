@@ -6,16 +6,16 @@ import { AlfVisitor } from './AlfVisitor.js';
 import * as fs from 'fs';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
- 
-let input: string = fs.readFileSync('./sample.txt').toString();
+
+let input: string = fs.readFileSync('./ex4.txt').toString();
 let inputStream: CodePointCharStream = CharStreams.fromString(input);
 let lexer: AlfLexer = new AlfLexer(inputStream);
 let tokenStream: CommonTokenStream = new CommonTokenStream(lexer);
 let parser: AlfParser = new AlfParser(tokenStream);
- 
+
 let tree = parser.start();
- 
-abstract class ASTNode {
+
+export abstract class ASTNode {
     constructor() { };
     public toJSON(): any {
         return {
@@ -23,21 +23,26 @@ abstract class ASTNode {
         };
     }
 }
- 
+
 class StatementsNode extends ASTNode {
     constructor(public readonly statements: ASTNode[], public readonly line: number) {
         super();
     }
- 
+
 }
 class DeclarationNode extends ASTNode {
     constructor(public readonly variable_type: string, public readonly variable: string, public readonly op: string, public readonly value: Expression | ValueNode | FunctionCallNode, public readonly line: number) {
         super();
     }
 }
- 
-class ValueNode extends ASTNode {
-    constructor(public readonly value: number | string, public readonly line: number, public readonly type: string) {
+
+export class ValueNode extends ASTNode {
+    constructor(public readonly value: number | string, public readonly line: number, public readonly type: string, public  result?: NodeResult|string) {
+        super();
+    }
+}
+export class VariableNode extends ASTNode {
+    constructor(public readonly value: number | string, public readonly line: number, public readonly type: string, public  result?: NodeResult|string) {
         super();
     }
 }
@@ -46,8 +51,8 @@ class TypeNode extends ASTNode {
         super();
     }
 }
-class Expression extends ASTNode {
-    constructor(public readonly op: string, public readonly left: Expression, public readonly right: Expression, public readonly line: number, public readonly type: string) {
+export class Expression extends ASTNode {
+    constructor(public readonly op: string, public readonly left: Expression, public readonly right: Expression, public readonly line: number, public readonly type: string, public result?: NodeResult|string) {
         super();
     }
 }
@@ -61,7 +66,7 @@ class ListValuesNode extends ASTNode {
         super();
     }
 }
-class AttributionNode extends ASTNode {
+export class AttributionNode extends ASTNode {
     constructor(public readonly variable: string, public readonly value: Expression, public readonly line: number) {
         super();
     }
@@ -81,53 +86,91 @@ class ReturnNode extends ASTNode {
         super();
     }
 }
-class FunctionCallNode extends ASTNode {
-    constructor(public readonly function_name: string, public readonly parameters: ValueNode[], public readonly line: number) {
+interface NodeResult {
+    type: string,
+    value: string,
+    line?: number
+}
+export class FunctionCallNode extends ASTNode {
+    constructor(public readonly function_name: string, public readonly parameters: ValueNode[], public readonly line: number, public result?: NodeResult|string) {
         super();
     }
 }
- 
-/* TODO 1: Declare Symbol Table type and initialize object */
- 
-let symbol_table = {};
+
+interface VariableSymbolTable {
+    type: string,
+    value: any
+}
+interface FunctionSymbolTable {
+    parameters: ParameterNode[]
+}
+let symbol_table: { [variable: string]: VariableSymbolTable | FunctionSymbolTable } = {};
+
 function addVariableToSymbolTable(variable: string, type: string) {
-    /* symbol_table[variable] = {
+    symbol_table[variable] = {
         type: type,
         value: undefined
-    }; */
+    };
 }
- 
-/* TODO 2: Check if a variable was already defined in the Symbol Table */
+
 function isVariableDefined(variable: string) {
- 
+    if (symbol_table[variable])
+        return true;
+    else
+        return false;
 }
- 
-/** TODO 3: Check if the types of the value nodes of an expression's operands are matching
-  *         The only operation allowed between strings is addition
-*/
+
 function checkTypes(left: ValueNode, right: ValueNode, op: string) {
- 
+    let type_left;
+    let type_right;
+
+    if (left.type === 'variable') {
+        type_left = (symbol_table[left.value] as VariableSymbolTable).type;
+    }
+    else
+        type_left = left.type;
+    if (right.type === 'variable') {
+        type_right = (symbol_table[right.value] as VariableSymbolTable).type;
+    }
+    else
+        type_right = right.type;
+
+    if ((type_left === 'string' || type_right === 'string') && op !== '+')
+        return false;
+
+    return true;
 }
- 
-/** TODO 4: Get expression final type
- * If both operants have the same type, the expression will receive their type
- * If one of the operands is string in the addition expression, the expression will receive the type 'string'
- * If one of the operands is float, the expression will receive the type 'float'
- * Add a new parameter to the Expression class, type, which will be the expression final type
- */
- 
+
 function getType(left: ValueNode, right: ValueNode, op: string) {
- 
+    let type_left;
+    let type_right;
+
+    if (left.type === 'variable') {
+        type_left = (symbol_table[left.value] as VariableSymbolTable).type;
+    }
+    else
+        type_left = left.type;
+    if (right.type === 'variable') {
+        type_right = (symbol_table[right.value] as VariableSymbolTable).type;
+    }
+    else
+        type_right = right.type;
+
+    if (type_left === type_right)
+        return type_left;
+    if (type_left === 'string' || type_right === 'string')
+        return 'string';
+    if (type_left === 'float' || type_right === 'float')
+        return 'float';
+    return 'unknown';
 }
- 
-/** TODO 5: Add the function parameters to the Symbol Table
- *  Each entry will have the function name as key and an object with the parameters list as value
- *  The function will also store the parameters as variables in the symbol table. This action is not necessary
- */
- 
+
 function addFunctionToSymbolTable(function_name: string, parameters: ParameterNode[]) {
- 
+    symbol_table[function_name] = {
+        parameters: parameters
+    };
 }
+
 class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisitor<ASTNode> {
     defaultResult() {
         return new StatementsNode([], 0);
@@ -146,14 +189,23 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
         return new StatementsNode([this.visit(ctx.statement())], 1);
     }
     visitVariableDeclaration(ctx: VariableDeclarationContext): DeclarationNode {
-        /* TODO 1 & 2 */
-        return new DeclarationNode(
-            (this.visit(ctx.type()) as TypeNode).type_name,
-            ctx.VARIABLE().text,
-            ctx.EQ().text,
-            this.visit(ctx.expression()) as Expression,
-            ctx.VARIABLE().symbol.line
-        );
+        if (isVariableDefined(ctx.VARIABLE().text)) {
+            throw new Error('The variable ' + ctx.VARIABLE().text + ' is already defined.');
+        } else {
+            let variable_type_in_symbol_table = (this.visit(ctx.type()) as TypeNode).type_name;
+            if((ctx.VARIABLE().parent?.parent instanceof FunctionParameterContext) === true)  
+                variable_type_in_symbol_table = 'parameter';
+            else
+                variable_type_in_symbol_table = (this.visit(ctx.type()) as TypeNode).type_name;
+            addVariableToSymbolTable(ctx.VARIABLE().text, variable_type_in_symbol_table);
+            return new DeclarationNode(
+                (this.visit(ctx.type()) as TypeNode).type_name,
+                ctx.VARIABLE().text,
+                ctx.EQ().text,
+                this.visit(ctx.expression()) as Expression,
+                ctx.VARIABLE().symbol.line
+            );
+        }
     }
     visitValueInt(ctx: ValueIntContext): ValueNode {
         return new ValueNode(
@@ -163,11 +215,17 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
         );
     }
     visitValueVariable(ctx: ValueVariableContext): ValueNode {
-        /* TODO 1 & 2 */
+        let variable_type: string = '';
+        if (!isVariableDefined(ctx.VARIABLE().text)) {
+            variable_type = 'variable';
+            addVariableToSymbolTable(ctx.VARIABLE().text, variable_type);
+        } else {
+            variable_type = (symbol_table[ctx.VARIABLE().text] as VariableSymbolTable).type;
+        }
         return new ValueNode(
             ctx.VARIABLE().text,
             ctx.VARIABLE().symbol.line,
-            'variable'
+            variable_type
         );
     }
     visitValueFloat(ctx: ValueFloatContext): ValueNode {
@@ -206,74 +264,70 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
         const left = this.visit(ctx.expression(0));
         const right = this.visit(ctx.expression(1));
         const op = ctx._op;
- 
-        /** TODO 3: Check the type for each operand Value Node 
-         *  If the types are not matching, throw ERROR: The types are not corresponding
-        */
+
         if (op.text) {
-            /* TODO 4: Add expression final type */
-            let type = '';
-            return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
+            let type = getType(left as ValueNode, right as ValueNode, op.text);
+            if (checkTypes(left as ValueNode, right as ValueNode, op.text)) {
+                return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
+            } else {
+                throw new Error('ERROR: The types are not corresponding');
+            }
         } else throw new Error();
     }
     visitExpressionDivision(ctx: ExpressionDivisionContext): Expression {
         const left = this.visit(ctx.expression(0));
         const right = this.visit(ctx.expression(1));
         const op = ctx._op;
- 
-        /** TODO 3: Check the type for each operand Value Node 
-         *  If the types are not matching, throw ERROR: The types are not corresponding
-        */
- 
-         if (op.text) {
-            /* TODO 4: Add expression final type */
-            let type = '';
-            return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
+
+        if (op.text) {
+            let type = getType(left as ValueNode, right as ValueNode, op.text);
+            if (checkTypes(left as ValueNode, right as ValueNode, op.text)) {
+                return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
+            } else {
+                throw new Error('ERROR: The types are not corresponding');
+            }
         } else throw new Error();
     }
     visitExpressionRem(ctx: ExpressionRemContext): Expression {
         const left = this.visit(ctx.expression(0));
         const right = this.visit(ctx.expression(1));
         const op = ctx._op;
- 
-        /** TODO 3: Check the type for each operand Value Node 
-         *  If the types are not matching, throw ERROR: The types are not corresponding
-        */
- 
-         if (op.text) {
-            /* TODO 4: Add expression final type */
-            let type = '';
-            return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
+
+        if (op.text) {
+            let type = getType(left as ValueNode, right as ValueNode, op.text);
+            if (checkTypes(left as ValueNode, right as ValueNode, op.text)) {
+                return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
+            } else {
+                throw new Error('ERROR: The types are not corresponding');
+            }
         } else throw new Error();
     }
     visitExpressionAddition(ctx: ExpressionAdditionContext): Expression {
         const left = this.visit(ctx.expression(0));
         const right = this.visit(ctx.expression(1));
         const op = ctx._op;
- 
-        /** TODO 3: Check the type for each operand Value Node 
-         *  If the types are not matching, throw ERROR: The types are not corresponding
-        */
- 
-         if (op.text) {
-            /* TODO 4: Add expression final type */
-            let type = '';
-            return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
+
+        if (op.text) {
+            let type = getType(left as ValueNode, right as ValueNode, op.text);
+            if (checkTypes(left as ValueNode, right as ValueNode, op.text)) {
+                return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
+            } else {
+                throw new Error('ERROR: The types are not corresponding');
+            }
         } else throw new Error();
     }
     visitExpressionSubtraction(ctx: ExpressionSubtractionContext): Expression {
         const left = this.visit(ctx.expression(0));
         const right = this.visit(ctx.expression(1));
         const op = ctx._op;
- 
-        /** TODO 3: Check the type for each operand Value Node 
-         *  If the types are not matching, throw ERROR: The types are not corresponding
-        */
- 
-         if (op.text) {
-            /* TODO 4: Add expression final type */
-            let type = '';
-            return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
+
+        if (op.text) {
+            let type = getType(left as ValueNode, right as ValueNode, op.text);
+            if (checkTypes(left as ValueNode, right as ValueNode, op.text)) {
+                return new Expression(op.text, left as Expression, right as Expression, ctx._op.line, type);
+            } else {
+                throw new Error('ERROR: The types are not corresponding');
+            }
         } else throw new Error();
     }
     visitExpressionParanthesis(ctx: ExpressionParanthesisContext) {
@@ -306,15 +360,18 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
         }
     }
     visitVariableAttribution(ctx: VariableAttributionContext): AttributionNode {
-        /* TODO 1 & 2*/
- 
-        /* TODO 5: Set the type of the variable in the Symbol Tables as being the final type of the expression */
-        return new AttributionNode(
-            ctx.VARIABLE().text,
-            this.visit(ctx.expression()) as Expression,
-            ctx.VARIABLE().symbol.line
-        );
+        if (isVariableDefined(ctx.VARIABLE().text)) {
+            throw new Error('ERROR: The variable ' + ctx.VARIABLE().text + ' is already defined.');
+        } else {
+            addVariableToSymbolTable(ctx.VARIABLE().text, (this.visit(ctx.expression()) as Expression).type);
+            return new AttributionNode(
+                ctx.VARIABLE().text,
+                this.visit(ctx.expression()) as Expression,
+                ctx.VARIABLE().symbol.line
+            );
+        }
     }
+    
     visitFunctionContent(ctx: FunctionContentContext): FunctionNode {
         let parameters = [];
         for (let i = 0; i < ctx.parameter().length; i++) {
@@ -325,8 +382,8 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
         for (let i = 0; i < ctx.statement().length; i++) {
             instructions[i] = this.visit(ctx.statement(i));
         }
-        /** TODO 5 */
- 
+        addFunctionToSymbolTable(ctx.VARIABLE().text, parameters);
+
         return new FunctionNode(
             ctx.VARIABLE().text,
             parameters,
@@ -336,14 +393,18 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
         );
     }
     visitVariableFunctionCall(ctx: VariableFunctionCallContext): DeclarationNode {
-        /* TODO 1 & 2 */
-        return new DeclarationNode(
-            (this.visit(ctx.type()) as TypeNode).type_name,
-            ctx.VARIABLE().text,
-            ctx.EQ().text,
-            this.visit(ctx.function_call()) as FunctionCallNode,
-            ctx.VARIABLE().symbol.line
-        );
+        if (isVariableDefined(ctx.VARIABLE().text)) {
+            throw new Error('ERROR: The variable ' + ctx.VARIABLE().text + ' is already defined.');
+        } else {
+            addVariableToSymbolTable(ctx.VARIABLE().text, (this.visit(ctx.type()) as TypeNode).type_name);
+            return new DeclarationNode(
+                (this.visit(ctx.type()) as TypeNode).type_name,
+                ctx.VARIABLE().text,
+                ctx.EQ().text,
+                this.visit(ctx.function_call()) as FunctionCallNode,
+                ctx.VARIABLE().symbol.line
+            );
+        }
     }
     visitFunctionCall(ctx: FunctionCallContext): FunctionCallNode {
         let parameters = [];
@@ -358,15 +419,23 @@ class MyAlfVisitor extends AbstractParseTreeVisitor<ASTNode> implements AlfVisit
         );
     }
 }
- 
- 
+
+
 const visitor = new MyAlfVisitor();
- 
+
 let ast = visitor.visit(tree).toJSON();
- 
+
+for(let key of Object.keys(symbol_table)) {
+    if ((symbol_table[key] as VariableSymbolTable).type === 'parameter') {
+        delete symbol_table[key];
+    }
+}
+
 let symbol_tree = {
     ast,
     symbol_table
 }
- 
-console.log(JSON.stringify(symbol_tree, null, 4));
+
+export default symbol_tree;
+fs.writeFileSync('ast_output.json', JSON.stringify(symbol_tree, null, 4));
+

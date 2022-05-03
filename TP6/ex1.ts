@@ -182,11 +182,11 @@ class MyEx1Visitor extends AbstractParseTreeVisitor<ASTNode> implements Ex1Visit
     }
     visitMultilineProg(ctx: MultilineProgContext): StatementsNode {
         //  EX 2
-        let statements = [];
+        let statements= [];
         for(let i = 0; i < ctx.statement().length; i++)
             statements[i] = this.visit(ctx.statement(i));
         if(statements) {
-            return new StatementsNode(statements, 1);
+            return new StatementsNode(statements , 1);
         } else {
             throw new Error();
         }
