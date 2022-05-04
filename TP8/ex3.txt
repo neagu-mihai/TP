@@ -1,0 +1,19 @@
+function double (nr)
+{
+    return nr*2;
+}
+ 
+double (7/2);
+
+goto start
+label double
+t1=nr
+t2=t1*t1
+nr=t2
+goto end
+
+label start
+nr=7/2
+param nr
+call double,1
+label end

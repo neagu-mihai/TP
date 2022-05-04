@@ -2,34 +2,29 @@
     "ast": {
         "statements": [
             {
-                "op": "/",
-                "left": {
-                    "value": 4,
-                    "line": 1,
-                    "type": "int",
-                    "id": "ValueNode"
-                },
-                "right": {
-                    "op": "*",
-                    "left": {
-                        "value": 7,
+                "function_name": "_sum1",
+                "parameters": [
+                    {
+                        "value": 1,
                         "line": 1,
                         "type": "int",
                         "id": "ValueNode"
                     },
-                    "right": {
-                        "value": 3,
+                    {
+                        "value": 2,
                         "line": 1,
                         "type": "int",
                         "id": "ValueNode"
                     },
-                    "line": 1,
-                    "type": "int",
-                    "id": "Expression"
-                },
+                    {
+                        "value": "\"s\"",
+                        "line": 1,
+                        "type": "string",
+                        "id": "ValueNode"
+                    }
+                ],
                 "line": 1,
-                "type": "int",
-                "id": "Expression"
+                "id": "FunctionCallNode"
             }
         ],
         "line": 1,

@@ -7,7 +7,7 @@ import * as fs from 'fs';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
-let input: string = fs.readFileSync('./ex4.txt').toString();
+let input: string = fs.readFileSync('./ex6.txt').toString();
 let inputStream: CodePointCharStream = CharStreams.fromString(input);
 let lexer: AlfLexer = new AlfLexer(inputStream);
 let tokenStream: CommonTokenStream = new CommonTokenStream(lexer);
